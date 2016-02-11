@@ -1,7 +1,58 @@
 doctype html
 html
   head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+    title="NJC Online"
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    // Favicons
+    link(rel='apple-touch-icon', sizes='57x57', href='/apple-touch-icon-57x57.png')
+    link(rel='apple-touch-icon', sizes='60x60', href='/apple-touch-icon-60x60.png')
+    link(rel='apple-touch-icon', sizes='72x72', href='/apple-touch-icon-72x72.png')
+    link(rel='apple-touch-icon', sizes='76x76', href='/apple-touch-icon-76x76.png')
+    link(rel='apple-touch-icon', sizes='114x114', href='/apple-touch-icon-114x114.png')
+    link(rel='apple-touch-icon', sizes='120x120', href='/apple-touch-icon-120x120.png')
+    link(rel='apple-touch-icon', sizes='144x144', href='/apple-touch-icon-144x144.png')
+    link(rel='apple-touch-icon', sizes='152x152', href='/apple-touch-icon-152x152.png')
+    link(rel='apple-touch-icon', sizes='180x180', href='/apple-touch-icon-180x180.png')
+    link(rel='icon', type='image/png', href='/favicon-32x32.png', sizes='32x32')
+    link(rel='icon', type='image/png', href='/android-chrome-192x192.png', sizes='192x192')
+    link(rel='icon', type='image/png', href='/favicon-96x96.png', sizes='96x96')
+    link(rel='icon', type='image/png', href='/favicon-16x16.png', sizes='16x16')
+    link(rel='manifest', href='/manifest.json')
+    link(rel='mask-icon', href='/safari-pinned-tab.svg', color='#5bbad5')
+    meta(name='msapplication-TileColor', content='#da532c')
+    meta(name='msapplication-TileImage', content='/mstile-144x144.png')
+    meta(name='theme-color', content='#ffffff')
+
+    link(rel="stylesheet/less", type="text/css", href='/less/app.less')
+    script(type="text/javascript", src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js")
+
+    link(rel="stylesheet", href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css')
+    link(rel='stylesheet', href='/vendor/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/vendor/bootstrap-additions/dist/bootstrap-additions.min.css')
+    link(rel='stylesheet', href='/vendor/angular-spinkit/build/angular-spinkit.min.css')
+    script(type="text/javascript", src="/vendor/jquery/dist/jquery.min.js")
+    script(type="text/javascript", src="/vendor/lodash/lodash.min.js")
+    script(type="text/javascript", src="/vendor/bootstrap/dist/js/bootstrap.min.js")
+    script(type="text/javascript", src="/vendor/api-check/dist/api-check.min.js")
+    script(type="text/javascript", src="/vendor/moment/min/moment.min.js")
+    script(type="text/javascript", src="/vendor/pdfjs-dist/web/compatibility.js")
+    script(type="text/javascript", src="/vendor/pdfjs-dist/build/pdf.combined.js")
+    script(type="text/javascript", src="/vendor/angular/angular.min.js")
+    script(type="text/javascript", src="/vendor/angular-spinkit/build/angular-spinkit.min.js")
+    script(type="text/javascript", src="/vendor/angular-formly/dist/formly.min.js")
+    script(type="text/javascript", src="/vendor/angular-formly-templates-bootstrap/dist/angular-formly-templates-bootstrap.min.js")
+    script(type="text/javascript", src="/vendor/angular-animate/angular-animate.min.js")
+    script(type="text/javascript", src="/vendor/angular-sanitize/angular-sanitize.min.js")
+    script(type="text/javascript", src="/vendor/angular-resource/angular-resource.min.js")
+    script(type="text/javascript", src="/vendor/angular-ui-router/release/angular-ui-router.min.js")
+    script(type="text/javascript", src="/vendor/angular-cache/dist/angular-cache.min.js")
+    script(type="text/javascript", src="/vendor/angular-truncate/src/truncate.js")
+    script(type="text/javascript", src="/vendor/angular-social-links/angular-social-links.js")
+    script(type="text/javascript", src="/js/modules.js")
+    script(type="text/javascript", src="/js/app.js")
+    script(type="text/javascript", src="/js/controllers/login.controller.js")
+    script(type="text/javascript", src="/js/controllers/viewer.controller.js")
+    script(type="text/javascript", src="/js/controllers/pdf.controller.js")
+  body.njc-guilty-pleas
+    .container(ng-app="njcGuiltyPleas")
+      block content

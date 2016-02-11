@@ -1,0 +1,60 @@
+/bootstrap/compiled.php
+/vendor
+composer.phar
+.env.*.php
+.env.php
+.DS_Store
+Thumbs.db
+tests/_output/*
+
+
+# Laravel
+/bootstrap/compiled.php
+/vendor
+
+# Configuration
+/app/config/local
+.env.local.php
+env.json
+env.dev.json
+
+# Composer
+composer.phar
+
+# OS
+.idea/
+vagrant
+.vagrant
+
+# sass
+.sass-cache
+
+# angular files to ignore
+gen_docs.disable
+test.disable
+regression/temp*.html
+performance/temp*.html
+.idea/workspace.xml
+*~
+*.swp
+angular.js.tmproj
+/node_modules/
+bower_components/
+angular.xcodeproj
+.idea
+*.iml
+.agignore
+.lvimrc
+libpeerconnection.log
+npm-debug.log
+/tmp/
+/scripts/bower/bower-*
+
+/screenshots
+screenshots
+screenshots/*
+
+# Build dir is only used for local dev, dist for live files
+/public/vendor
+/public/build
+/app/views/build

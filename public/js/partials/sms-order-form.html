@@ -1,0 +1,70 @@
+<section id="view-order">
+  <header>
+    <div class="row text-left">
+      <div class="col-xs-12">
+        <img src="/imgs/njc-logo.png"/>
+      </div>
+    </div>
+  </header>
+  <nav>
+    <div class="row">
+      <div class="left-nav col-xs-6">
+        <ul>
+          <li><a href="#">Dashboard</a></li>
+          <li><a href="#">Users</a></li>
+          <li><a href="#">Forms</a></li>
+        </ul>
+      </div>
+      <div class="col-xs-6 text-right">
+        <ul>
+          <li>Logged in as Gavin</li>
+          <li>
+            <a class="btn btn-danger" href="#">Save and exit</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <main class="row">
+    <div class="row">
+      <h1 class="col-xs-12">{{ vm.order.id | uppercase }}</h1>
+    </div>
+    <div class="row">
+      <div class="col-xs-6">
+        <img src="/imgs/order-thumbnail.png" alt="Preview of the order" height="auto" width="100%" />
+      </div>
+      <div class="col-xs-6">
+        <div class="row">
+          <h4>{{ vm.order.name }}</h4>
+        </div>
+        <div class="row">
+          <p>Order #:{{ vm.order.id }}</p>
+        </div>
+        <div class="row">
+          <p ng-bind-html="vm.order.address"></p>
+        </div>
+        <form id="form_id" action="index.html" method="post" class="form" ng-show="!vm.sent">
+          <div class="row">
+            <label class="form-label">Phone number</label>
+            <input class="form-control" type="text" ng-model="vm.number"/>
+          </div>
+          <div class="row form-group">
+            <label class="form-label">SMS Message</label>
+            <textarea class="form-control" ng-model="vm.message" rows="8" cols="40"></textarea>
+          </div>
+          <div class="row">
+            <button type="button" ng-click="vm.send()" class="btn btn-primary" name="button">
+              <span class="fa fa-send"></span>&nbsp;Send SMS
+            </button>
+          </div>
+        </form>
+        <div class="row" ng-show="vm.sent">
+          <p class="alert alert-success">Great! Sms sent</p>
+        </div>
+      </div>
+    </div>
+  </main>
+  <!--<footer class="row">
+    <p><small>Code For Australia</small></p>
+  </footer>-->
+</section>

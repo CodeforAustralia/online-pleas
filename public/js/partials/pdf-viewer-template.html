@@ -1,0 +1,24 @@
+<section id="pdf-viewer">
+  <div class="row">
+    <div class="col-xs-12">
+      <button class="btn btn-default" ng-click="goPrevious()"><span class="fa fa-chevron-left"></span>&nbsp;<span class="hidden-xs">Prev Page</span></button>
+      <button class="btn btn-default" ng-click="goNext()"><span class="hidden-xs">Next page</span>&nbsp;<span class="fa fa-chevron-right"></span></button>
+      &nbsp;|&nbsp;
+      <button class="btn btn-default" ng-click="zoomIn()">+</span></button>
+      <button class="btn btn-default" ng-click="fit()">100%</span></button>
+      <button class="btn btn-default" ng-click="zoomOut()">-</span></button>
+      &nbsp;|&nbsp;
+      <button class="btn btn-default" ng-click="print()"><span class="fa fa-print"></span>&nbsp;<span class="hidden-xs">Print</span></button>
+      <button class="btn btn-default" ng-click="email()"><span class="fa fa-envelope"></span>&nbsp;<span class="hidden-xs">Email</span></button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div ng-if="loading" class="col-xs-4 col-xs-push-4 text-center">
+        <double-bounce-spinner></double-bounce-spinner>
+        <h2>Loading your document...</h2>
+      </div>      
+      <canvas id="pdf-canvas"></canvas>
+    </div>
+  </div>
+</section>

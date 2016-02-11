@@ -1,0 +1,68 @@
+<section id="admin">
+  <header>
+    <div class="row text-left">
+      <div class="col-xs-12">
+        <img src="/imgs/njc-logo.png"/>
+      </div>
+    </div>
+  </header>
+  <nav>
+    <div class="row">
+      <div class="left-nav col-xs-6">
+        <ul>
+          <li><a href="#">Dashboard</a></li>
+          <li><a href="#">Users</a></li>
+          <li><a href="#">Forms</a></li>
+        </ul>
+      </div>
+      <div class="col-xs-6 text-right">
+        <ul>
+          <li>Logged in as Gavin</li>
+          <li>
+            <a class="btn btn-danger" href="#">Save and exit</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <main>
+    <div class="row">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Allocated to</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in vm.item_list | orderBy: item.date">
+            <td>
+              <a href="#" ui-sref="view-order({id: item.id})">{{ item.id }}</a>
+            </td>
+            <td>{{ item.date }}</td>
+            <td>{{ item.type }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.status }}</td>
+            <td>{{ item.allocated_to }}</td>
+            <td ng-if="!item.review">
+              <span class="fake-pill">{{ item.risk }}</span> <span class="fa fa-lock"></span></td>
+            <td ng-if="item.review"><span class="fake-pill">{{ item.review }}</span><br/><span class="fake-pill">{{ item.risk }}</span><span class="fa fa-lock"></span></td>
+            <td>
+              <span ui-sref="view-order({id: item.id})" class="fa fa-eye"></span>&nbsp;
+              <span ui-sref="view-order({id: item.id})" class="fa fa-share"></span>&nbsp;
+              <span ui-sref="view-order({id: item.id})" class="fa fa-wrench"></span>&nbsp;
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <footer class="row">
+  </footer>
+</section>

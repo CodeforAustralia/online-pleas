@@ -1,0 +1,70 @@
+<section id="view-order">
+  <header>
+    <div class="row text-left">
+      <div class="col-xs-12">
+        <img src="/imgs/njc-logo.png"/>
+      </div>
+    </div>
+  </header>
+  <nav>
+    <div class="row">
+      <div class="left-nav col-xs-6">
+        <ul>
+          <li><a href="#">Dashboard</a></li>
+          <li><a href="#">Users</a></li>
+          <li><a href="#">Forms</a></li>
+        </ul>
+      </div>
+      <div class="col-xs-6 text-right">
+        <ul>
+          <li>Logged in as Gavin</li>
+          <li>
+            <a class="btn btn-danger" href="#">Save and exit</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <main class="row">
+    <div class="row">
+      <h1 class="col-xs-12">{{ vm.order.id | uppercase }}</h1>
+    </div>
+    <div class="row">
+      <div class="col-xs-4">
+        <p>
+          <span class="fa fa-lock"></span>&nbsp;{{ vm.order.status }}
+        </p>
+      </div>
+      <div class="col-xs-8 text-right">
+        <div class="btn-group">
+          <button type="button" class="btn" name="button"><span class="fa fa-wrench"></span>&nbsp;Manage</button>
+          <button type="button" class="btn" name="button"><span class="fa fa-pencil"></span>&nbsp;Update</button>
+          <button type="button" class="btn" name="button"><span class="fa fa-lines"></span>&nbsp;Narrative</button>
+          <button type="button" class="btn" name="button"><span class="fa fa-print"></span>&nbsp;Print</button>
+          <button type="button" class="btn" name="button"><span class="fa fa-download"></span>&nbsp;PDF</button>
+          <button type="button" class="btn" name="button"><span class="fa fa-table"></span>&nbsp;Excel</button>
+          <button ui-sref="sms-order({id: vm.order.id})" type="button" class="btn" name="button"><span class="fa fa-mobile"></span>&nbsp;Send by SMS</button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6">
+        <p><a href="#">{{ vm.order.name }}</a></p>
+        <p ng-bind-html="vm.order.address"></p>
+      </div>
+      <div class="col-xs-6">
+        <h3>Notifications</h3>
+        <span class="fake-pill">{{ vm.order.risk }}</span>
+        <p>Application is labelled as high risk due to:</p>
+        <p>Trigger Flags:</p>
+        <ul>
+          <li>Stalking</li>
+          <li>Abuse becoming worse</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+  <!--<footer class="row">
+    <p><small>Code For Australia</small></p>
+  </footer>-->
+</section>

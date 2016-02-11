@@ -1,0 +1,44 @@
+{
+  "name": "njc-efv",
+  "description": "Proof of concept for online delivery of fv/ps io forms",
+  "main": "index.js",
+  "authors": [
+    "Ezekiel Kigbo <theatlasroom@gmail.com>"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "less": "~2.5.3",
+    "angular": "~1.4.7",
+    "angular-resource": "~1.4.7",
+    "lodash": "~3.10.1",
+    "angular-ui-router": "~0.2.15",
+    "angular-cache": "~4.4.2",
+    "angular-animate": "~1.4.7",
+    "angular-truncate": "*",
+    "angular-social-links": "~0.0.21",
+    "angular-formly": "~7.3.3",
+    "angular-formly-templates-bootstrap": "~6.1.5",
+    "bootstrap-additions": "~0.3.1",
+    "api-check": "~7.5.5",
+    "moment": "~2.10.6",
+    "angular-moment": "~0.10.3",
+    "angular-pdf": "~1.2.6",
+    "SpinKit": "spinkit#~1.2.5",
+    "angular-spinkit": "~0.3.3",
+    "angular-sanitize": "~1.4.8"
+  },
+  "resolutions": {
+    "angular": "1.4.8"
+  }
+}
