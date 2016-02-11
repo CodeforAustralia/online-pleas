@@ -1,6 +1,6 @@
 {
-  "name": "njc-efv",
-  "description": "Proof of concept for online delivery of fv/ps io forms",
+  "name": "njc-guilty-pleas",
+  "description": "Proof of concept for online guilty pleas",
   "main": "index.js",
   "authors": [
     "Ezekiel Kigbo <theatlasroom@gmail.com>"
@@ -33,7 +33,6 @@
     "api-check": "~7.5.5",
     "moment": "~2.10.6",
     "angular-moment": "~0.10.3",
-    "angular-pdf": "~1.2.6",
     "SpinKit": "spinkit#~1.2.5",
     "angular-spinkit": "~0.3.3",
     "angular-sanitize": "~1.4.8"

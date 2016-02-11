@@ -2,11 +2,11 @@
   'use strict';
   // App bootstrapping + DI
   /*@ngInject*/
-  angular.module('njcEfvApp')
-    .controller('LoginController', LoginController);
+  angular.module('njcGuiltyPleas')
+    .controller('HomeController', HomeController);
 
   /*@ngInject*/
-  function LoginController($scope, $log, $rootScope, $state){
+  function HomeController($scope, $log, $rootScope, $state){
 
     var vm = this;
     vm.model = {};
@@ -15,14 +15,11 @@
       $log.log("Logging in");
       $log.log($rootScope);
       $log.log(vm);
-      $rootScope.user = {
-        name: vm.model.username
-      };
       $state.go("viewer");
     };
 
     function init(){
-      $log.log("Loaded the login controller");
+      $log.log("Loaded the home controller");
     }
 
     init();

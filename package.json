@@ -1,6 +1,7 @@
 {
-  "name": "njc-efv",
-  "version": "0.0.0",
+  "name": "njc-guilty-pleas",
+  "description": "Proof of concept for online guilty pleas",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",

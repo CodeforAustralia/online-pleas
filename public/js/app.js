@@ -2,7 +2,7 @@
   'use strict';
   // App bootstrapping + DI
   /*@ngInject*/
-  angular.module('njcEfvApp')
+  angular.module('njcGuiltyPleas')
     .config(function($urlRouterProvider){
       // route the default state to the app home
       $urlRouterProvider.when('', '/');
@@ -27,28 +27,10 @@
 
   function stateConfig($stateProvider){
     $stateProvider
-  	.state('login', { // state for showing all movies
+  	.state('home', { // state for showing all movies
   		url: '/',
-  		templateUrl: 'js/partials/login.html',
-  		controller: 'LoginController',
-      controllerAs: 'vm',
-      resolve: {
-
-      }
-  	})
-    .state('doc', { // state for showing all movies
-  		url: '/doc/:id',
-  		templateUrl: 'js/partials/login.html',
-  		controller: 'LoginController',
-      controllerAs: 'vm',
-      resolve: {
-
-      }
-  	})
-    .state('viewer', { // state for showing all movies
-  		url: '/viewer',
-  		templateUrl: 'js/partials/viewer.html',
-  		controller: 'ViewerController',
+  		templateUrl: 'js/partials/home.html',
+  		controller: 'HomeController',
       controllerAs: 'vm',
       resolve: {
 

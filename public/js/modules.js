@@ -1,13 +1,11 @@
 'use strict';
 
-angular.module('njcEfvApp', [
+angular.module('njcGuiltyPleas', [
   'ui.router',
-  'pdf',
   'angular-spinkit',
   'ngResource',
   'ngSanitize',
   'ngAnimate',
-  'mgcrea.ngStrap',
   'angular-cache',
   'truncate',
   'socialLinks',
