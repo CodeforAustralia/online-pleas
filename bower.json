@@ -35,7 +35,8 @@
     "angular-moment": "~0.10.3",
     "SpinKit": "spinkit#~1.2.5",
     "angular-spinkit": "~0.3.3",
-    "angular-sanitize": "~1.4.8"
+    "angular-sanitize": "~1.4.8",
+    "angular-multi-step-form": "^1.2.7"
   },
   "resolutions": {
     "angular": "1.4.8"

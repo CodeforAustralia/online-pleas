@@ -35,6 +35,21 @@
       resolve: {
 
       }
+  	})
+    .state('form', {
+      abstract: true,
+      template: '<ui-view/>',
+      resolve: {
+
+      }
+  	})
+    .state('form.details', {
+  		url: '/form',
+  		templateUrl: 'js/partials/form.html',
+  		controller: 'FormController',
+      controllerAs: 'vm',
+      resolve: {
+      }
   	});
   }
 

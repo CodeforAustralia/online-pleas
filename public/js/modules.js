@@ -10,5 +10,6 @@ angular.module('njcGuiltyPleas', [
   'truncate',
   'socialLinks',
   'formly',
-  'formlyBootstrap'
+  'formlyBootstrap',
+  'multiStepForm'  
 ]);

@@ -1,0 +1,22 @@
+<div id="form" class="col-xs-12 col-sm-6 page-content">
+  <multi-step-container steps="vm.steps">
+    <header class="row">
+      <h2>{{$getActiveStep().title}}</h2>
+    </header>
+    <step-container></step-container>
+    <footer class="row">
+      <div class="col-xs-6">
+        <button ng-disabled="$isFirst()" class="btn btn-minor" ng-click="$previousStep()">
+            <span class="fa fa-chevron-left"></span>
+            Back
+        </button>
+      </div>
+      <div class="col-xs-6 text-right ">
+        <button ng-disabled="$isLast()" class="btn btn-default" ng-click="$nextStep()">
+            Next
+            <span class="fa fa-chevron-right"></span>
+        </button>
+      </div>
+    </footer>
+  </multi-step-container>
+</div>
