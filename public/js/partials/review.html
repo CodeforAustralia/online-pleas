@@ -1,5 +1,5 @@
-<div class="row">
-  <h2>Your details</h2>
+<div class="row review">
+  <h3>Your details</h3>
   <ul>
     <li><strong>Your name:</strong><br/>
       {{ vm.model.name }}
@@ -12,13 +12,13 @@
     </li>
   </ul>
 
-  <h2>Your offence</h2>
+  <h3>Your offence(s)</h3>
   <ul>
     <li><strong>Date of your hearing:</strong><br/>
-      {{ vm.model.hearing_date }}
+      {{ vm.model.hearing_date | date: "dd MMM yyyy" }}
     </li>
     <li><strong>Date of your offence:</strong><br/>
-      {{ vm.model.offence_date }}
+      {{ vm.model.offence_date | date: "dd MMM yyyy" }}
     </li>
     <li><strong>Your offence number:</strong><br/>
       {{ vm.model.offence_number }}
@@ -31,7 +31,7 @@
     </li>
   </ul>
 
-  <h2>Your declaration</h2>
+  <h3>Your declaration</h3>
   <ul>
     <li><strong>I acknowledge I may plead guilty or not guilty. I acknowledge no police officer or other person told me to plead guilty: </strong>
       {{ vm.model.acknowledgement ? "YES" : "NO" }}

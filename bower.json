@@ -36,7 +36,8 @@
     "SpinKit": "spinkit#~1.2.5",
     "angular-spinkit": "~0.3.3",
     "angular-sanitize": "~1.4.8",
-    "angular-multi-step-form": "^1.2.7"
+    "angular-multi-step-form": "^1.2.7",
+    "angular-strap": "^2.3.7"
   },
   "resolutions": {
     "angular": "1.4.9"

@@ -11,5 +11,6 @@ angular.module('njcGuiltyPleas', [
   'socialLinks',
   'formly',
   'formlyBootstrap',
-  'multiStepForm'  
+  'multiStepForm',
+  'mgcrea.ngStrap'
 ]);

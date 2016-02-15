@@ -72,8 +72,14 @@
         templateOptions: {
           label: 'Date of your hearing',
           placeholder: 'Enter the date of your hearing',
-          required: true
-        }
+          required: true,
+          'bs-datepicker': 'bs-datepicker'
+        },
+        ngModelAttrs: {
+          'bs-datepicker': {
+            attribute: 'bs-datepicker'
+          }
+        },
       },
       {
         key: 'offence_date',
@@ -82,7 +88,13 @@
           label: 'Date of your offence',
           placeholder: 'Enter the date your offence was committed',
           required: true,
-        }
+          'bs-datepicker': 'bs-datepicker'          
+        },
+        ngModelAttrs: {
+          'bs-datepicker': {
+            attribute: 'bs-datepicker'
+          }
+        },
       },
       {
         key: 'offence_number',

@@ -5,15 +5,21 @@
     </header>
     <step-container></step-container>
     <footer class="row">
-      <div class="col-xs-6">
-        <button ng-disabled="$isFirst()" class="btn btn-minor" ng-click="$previousStep()">
+      <div class="col-xs-6 no-padding">
+        <button ng-hide="$isFirst()" class="btn btn-minor" ng-click="$previousStep()">
             <span class="fa fa-chevron-left"></span>
             Back
         </button>
       </div>
-      <div class="col-xs-6 text-right ">
-        <button ng-disabled="$isLast()" class="btn btn-default" ng-click="$nextStep()">
+      <div class="col-xs-6 text-right no-padding">
+        <button ng-hide="$isLast()" class="btn btn-default" ng-click="$nextStep()">
             Next
+            <span class="fa fa-chevron-right"></span>
+        </button>
+      </div>
+      <div class="col-xs-6 text-right no-padding">
+        <button ng-show="$isLast()" class="btn btn-primary" ng-click="$finishStep()">
+            Finish and submit
             <span class="fa fa-chevron-right"></span>
         </button>
       </div>

@@ -10,6 +10,16 @@
     .config(function (CacheFactoryProvider) {
       angular.extend(CacheFactoryProvider.defaults, { maxAge: 15 * 60 * 1000 });
     })
+    .config(function($datepickerProvider) {
+      angular.extend($datepickerProvider.defaults, {
+        dateFormat: 'dd MMM yyyy',
+        modelDateFormat: 'yyyy-MM-dd',
+        dateType: 'string',
+        startWeek: 1,
+        useNative: true,
+        autoclose: true
+      });
+    })
     .controller('AppController', function ($log, $scope, $rootScope) {
       var main = this;
 
