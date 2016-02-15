@@ -39,6 +39,6 @@
     "angular-multi-step-form": "^1.2.7"
   },
   "resolutions": {
-    "angular": "1.4.8"
+    "angular": "1.4.9"
   }
 }
