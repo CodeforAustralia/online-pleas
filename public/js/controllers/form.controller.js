@@ -26,7 +26,7 @@
       },
       {
         templateUrl: 'js/partials/review.html',
-        title: 'Review'
+        title: 'Review your plea'
       }
     ];
 
@@ -106,7 +106,7 @@
         key: 'message',
         type: 'textarea',
         templateOptions: {
-          label: 'Message to the magistrate',
+          label: 'Message to the Magistrate',
           placeholder: 'Enter a message to be sent to the magistrate',
         }
       },

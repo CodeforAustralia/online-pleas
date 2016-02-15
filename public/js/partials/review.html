@@ -1,0 +1,43 @@
+<div class="row">
+  <h2>Your details</h2>
+  <ul>
+    <li><strong>Your name:</strong><br/>
+      {{ vm.model.name }}
+    </li>
+    <li><strong>Preferred contact:</strong><br/>
+      {{ vm.model.contact_method }}
+    </li>
+    <li><strong>Contact {{vm.model.contact_method}}:</strong><br/>
+      {{ vm.model.contact }}
+    </li>
+  </ul>
+
+  <h2>Your offence</h2>
+  <ul>
+    <li><strong>Date of your hearing:</strong><br/>
+      {{ vm.model.hearing_date }}
+    </li>
+    <li><strong>Date of your offence:</strong><br/>
+      {{ vm.model.offence_date }}
+    </li>
+    <li><strong>Your offence number:</strong><br/>
+      {{ vm.model.offence_number }}
+    </li>
+    <li><strong>Details of your offence(s):</strong><br/>
+      {{ vm.model.offence_details }}
+    </li>
+    <li><strong>Message to the Magistrate:</strong><br/>
+      {{ vm.model.message }}
+    </li>
+  </ul>
+
+  <h2>Your declaration</h2>
+  <ul>
+    <li><strong>I acknowledge I may plead guilty or not guilty. I acknowledge no police officer or other person told me to plead guilty: </strong>
+      {{ vm.model.acknowledgement ? "YES" : "NO" }}
+    </li>
+    <li><strong>I plead guilty to the offence(s) listed in this form. This plea is entered voluntarily of my own free will: </strong>
+      {{ vm.model.plead_guilty ? "YES" : "NO" }}
+    </li>
+  </ul>
+</div>
