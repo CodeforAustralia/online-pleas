@@ -9,6 +9,12 @@
   function FormController($scope, $log, $rootScope, $state){
 
     var vm = this;
+
+    vm.finish = function(){
+      $log.log("FINISHED");
+      $state.go("form.finish");
+    };
+
     vm.model = {};
 
     vm.steps = [
@@ -88,7 +94,7 @@
           label: 'Date of your offence',
           placeholder: 'Enter the date your offence was committed',
           required: true,
-          'bs-datepicker': 'bs-datepicker'          
+          'bs-datepicker': 'bs-datepicker'
         },
         ngModelAttrs: {
           'bs-datepicker': {

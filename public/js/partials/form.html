@@ -1,5 +1,5 @@
 <div id="form" class="col-xs-12 col-sm-6 page-content">
-  <multi-step-container steps="vm.steps">
+  <multi-step-container steps="vm.steps" on-finish="vm.finish()">
     <header class="row">
       <h2>{{$getActiveStep().title}}</h2>
     </header>
@@ -18,7 +18,7 @@
         </button>
       </div>
       <div class="col-xs-6 text-right no-padding">
-        <button ng-show="$isLast()" class="btn btn-primary" ng-click="$finishStep()">
+        <button ng-show="$isLast()" class="btn btn-primary" ng-click="$finish()">
             Finish and submit
             <span class="fa fa-chevron-right"></span>
         </button>

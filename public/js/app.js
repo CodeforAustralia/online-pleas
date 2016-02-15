@@ -60,6 +60,14 @@
       controllerAs: 'vm',
       resolve: {
       }
+  	})
+    .state('form.finish', {
+  		url: '/submitted',
+  		templateUrl: 'js/partials/confirmation.html',
+  		controller: 'FormConfirmationController',
+      controllerAs: 'vm',
+      resolve: {
+      }
   	});
   }
 
