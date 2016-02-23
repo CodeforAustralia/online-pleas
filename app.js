@@ -24,6 +24,9 @@ app.use(cookieParser());
 app.use(compression());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// set the static asset path
+app.use('/static', express.static('public'));
+
 app.use('/', routes);
 app.use('/users', users);
 
