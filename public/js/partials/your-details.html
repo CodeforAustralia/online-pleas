@@ -1,6 +1,16 @@
-<div class="row">
-  <form>
-    <formly-form model="vm.model" fields="vm.fields.your_details">
-    </formly-form>
-  </form>
+<div class="col-xs-12 alert alert-danger" ng-if="vm.form.your_details.$invalid && (vm.form.your_details.$dirty || vm.form.your_details.$submitted)">
+  <h3>Form errors</h3>
+  <p ng-repeat="error in vm.errors">{{ error.message }}</p>
 </div>
+<form name="vm.form.your_details" novalidate>
+  <formly-form model="vm.model" fields="vm.fields.your_details">
+    <div class="col-xs-6 no-padding">
+    </div>
+    <div class="col-xs-6 text-right no-padding">
+      <button class="btn btn-default" ng-click="vm.next('your_details','your_offence')">
+        Next
+        <span class="fa fa-chevron-right"></span>
+      </button>
+    </div>
+  </formly-form>
+</form>

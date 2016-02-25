@@ -1,14 +1,36 @@
 <div class="row">
-  <h3>Offences</h3>
+  <div class="col-xs-12">
+    <h3>Offences</h3>
+  </div>
 </div>
 <div class="row">
-  <blockquote class="col-xs-12">
-    {{ vm.model.offence_details }}
-  </blockquote>
+  <div class="col-xs-12">    
+    <blockquote>
+      {{ vm.model.offence_details }}
+    </blockquote>
+  </div>
 </div>
 <div class="row">
-  <form>
+  <div class="col-xs-12 alert alert-danger" ng-if="vm.form.declaration.$invalid && (vm.form.declaration.$dirty || vm.form.declaration.$submitted)">
+    <h3>Form errors</h3>
+    <p ng-repeat="error in vm.errors">{{ error.message }}</p>
+  </div>
+</div>
+<div class="row">
+  <form class="col-xs-12" name="vm.form.declaration" novalidate>
     <formly-form model="vm.model" fields="vm.fields.declaration">
+      <div class="col-xs-6 no-padding">
+        <button class="btn btn-default" ng-click="vm.prev('your_offence')">
+          <span class="fa fa-chevron-left"></span>
+          Previous
+        </button>
+      </div>
+      <div class="col-xs-6 text-right no-padding">
+        <button class="btn btn-default" ng-click="vm.next('declaration', 'review')">
+          Next
+          <span class="fa fa-chevron-right"></span>
+        </button>
+      </div>
     </formly-form>
   </form>
 </div>

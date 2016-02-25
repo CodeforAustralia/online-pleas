@@ -6,9 +6,80 @@
     .controller('FormController', FormController);
 
   /*@ngInject*/
-  function FormController($scope, $log, $rootScope, $state){
+  function FormController($scope, $log, $rootScope, $state, $alert, $tooltip){
 
     var vm = this;
+
+    vm.errors = [];
+
+    vm.prev = function(prev_step){
+      vm.errors = [];
+      $state.go('form.'+prev_step.replace("_", "-"));
+    };
+
+    vm.next = function(current_step, next_step){
+      vm.checkRequiredFields(current_step);
+      $log.log("Moving to: " + next_step);
+      // check the required fields
+      $log.log(vm.fields);
+      vm.checkRequiredFields(current_step);
+      if (vm.errors.length === 0){
+        $state.go('form.'+next_step.replace("_", "-"));
+      }
+    };
+
+    vm.checkRequiredFields = function(step){
+      $log.log("Checking: " + step);
+      vm.errors = [];
+      var fields = vm.fields[step];
+
+      $log.log(fields);
+
+      if (step !== 'declaration'){
+        fields.forEach(function(field){
+          if (field.formControl.$invalid)
+            vm.errors.push({'message': field.templateOptions.label + " is required"});
+        });
+      }
+      else {
+        var valid = true;
+        fields.forEach(function(field){
+          if (field.formControl.$invalid)
+            valid = false;
+        });
+        // custom error message
+        if (!valid)
+          vm.errors.push({'message': "You must agree to both declarations to proceed"});
+      }
+    };
+
+    /*vm.next = function(){
+      $log.log("Next func");
+      vm.steps.$nextStep();
+    };
+
+    vm.checkFields = function(){
+      // $nextStep();
+      $log.log("STEP CHANGE");
+      //$log.log("VALID:");
+      //$log.log($getActiveStep().valid);
+      return false;
+    };*/
+
+    //var new_alert;
+    vm.new_tooltip = function(elem,title){
+      $log.log("NEW TOOLTIP");
+      //elem = angular.element(elem.id);
+      $log.log(elem);
+      var tar = angular.element(document.querySelector("#" + elem.id));
+      $log.log(tar);
+
+      $tooltip(tar, {
+        title: title,
+        placement: 'right',
+        trigger: 'hover'
+      });
+    };
 
     vm.finish = function(){
       $log.log("FINISHED");
@@ -17,35 +88,75 @@
 
     vm.model = {};
 
+    /*// TRY: https://scotch.io/tutorials/angularjs-multi-step-form-using-ui-router
+
     vm.steps = [
       {
         templateUrl: 'js/partials/your-details.html',
-        title: 'Your details'
+        title: 'Your details',
+        hasForm: true,
+        controller: 'YourDetailsFormController',
       },
       {
         templateUrl: 'js/partials/your-offence.html',
-        title: 'Your offence'
+        title: 'Your offence',
+        hasForm: true,
       },
       {
         templateUrl: 'js/partials/declaration.html',
-        title: 'Declaration'
+        title: 'Declaration',
+        hasForm: true,
       },
       {
         templateUrl: 'js/partials/review.html',
-        title: 'Review your plea'
+        title: 'Review your plea',
+        hasForm: true,
       }
-    ];
+    ];*/
 
     vm.fields = {};
     vm.fields.your_details = [
       {
-        key: 'name',
+        key: 'first-name',
         type: 'input',
         templateOptions: {
-          label: 'Your name',
-          placeholder: 'Enter your name',
+          label: 'Your first name',
+          placeholder: 'Enter your first name',
+          required: true,
+        },
+        ngModelAttrs: {
+          'bs-tooltip': {attribute: 'bs-tooltip'},
+          'data-trigger': {attribute: 'data-trigger'},
+          'data-placement': {attribute: 'data-placement'},
+          'data-container': {attribute: 'data-container'},
+          'data-type': {attribute: 'data-type'},
+          'data-title': {attribute: 'data-title'},
+          'data-animation': {attribute: 'data-animation'}
+        }
+      },
+      {
+        key: 'last-name',
+        type: 'input',
+        templateOptions: {
+          label: 'Your last name',
+          placeholder: 'Enter your last name',
           required: true
         }
+      },
+      {
+        key: 'birthday',
+        type: 'input',
+        templateOptions: {
+          label: 'Date of Birth',
+          placeholder: 'Enter your date of birth',
+          required: true,
+          'bs-datepicker': 'bs-datepicker'
+        },
+        ngModelAttrs: {
+          'bs-datepicker': {
+            attribute: 'bs-datepicker'
+          }
+        },
       },
       {
         key: 'contact_method',
@@ -54,7 +165,6 @@
           label: 'Preferred contact',
           placeholder: 'Select a preferred contact method',
           required: true,
-
           options: [
             {name: "Phone", value: "phone"}, {name: "Email", value: "email"}
           ],
@@ -64,7 +174,7 @@
         key: 'contact',
         type: 'input',
         templateOptions: {
-          label: 'Contact',
+          label: 'Contact', // make this label dynamic
           placeholder: 'Enter your contact',
           required: true
         }
@@ -84,8 +194,11 @@
         ngModelAttrs: {
           'bs-datepicker': {
             attribute: 'bs-datepicker'
+          },
+          'form-note': {
+            attribute: 'This date is located on your summons document in the section "Where will the case be heard?"'
           }
-        },
+        }
       },
       {
         key: 'offence_date',
@@ -103,12 +216,17 @@
         },
       },
       {
-        key: 'offence_number',
+        key: 'offence_number', // Maybe make the form 'extra informatioon a directive or something, slots in after the correct field etc'
         type: 'input',
         templateOptions: {
-          label: 'Your offence number',
-          placeholder: 'Enter the offence number you received',
-          required: true
+          label: 'MNI/JAID',
+          placeholder: 'Enter your MNI/JAID reference number',
+          required: false
+        },
+        ngModelAttrs: {
+          'form-note': {
+            attribute: "This reference number may appear on your summons document"
+          }
         }
       },
       {
@@ -126,6 +244,11 @@
         templateOptions: {
           label: 'Message to the Magistrate',
           placeholder: 'Enter a message to be sent to the magistrate',
+        },
+        ngModelAttrs: {
+          'form-note': {
+            attribute: "This might include explaining why you offended, what you've done to repair the harm, or things you'd like the magistrate to consider when deciding your sentence."
+          }
         }
       },
     ];
@@ -149,8 +272,37 @@
       }
     ];
 
+    function error(){
+      new_alert = $alert({
+        title: 'Holy guacamole!',
+        content: 'Best check yo self, you\'re not looking too good.',
+        type: 'danger',
+        show: false,
+        container: "#alert-container",
+        duration: 2500,
+        dismissable: true
+      });
+
+      new_alert.show();
+    }
+
+    function success(callback){
+      $log.log("Success");
+      $alert({
+        title: 'Holy guacamole!',
+        content: 'Best check yo self, you\'re not looking too good.',
+        type: 'success',
+        show: true,
+        placement: '',
+        container: "#alert-container",
+        duration: 5,
+        dismissable: true
+      });
+    }
+
     function init(){
       $log.log("Loaded the form controller");
+      success();
     }
 
     init();

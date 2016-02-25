@@ -7,6 +7,12 @@
       // route the default state to the app home
       $urlRouterProvider.when('', '/');
     })
+    .config(function(formlyConfigProvider){
+      // custom determiniation if the forms error fields should be displayed
+      formlyConfigProvider.extras.errorExistsAndShouldBeVisibleExpression = function($viewValue, $modelValue, scope) {
+          return (scope.fc.$invalid && scope.form.$submitted);
+      };
+    })
     .config(function (CacheFactoryProvider) {
       angular.extend(CacheFactoryProvider.defaults, { maxAge: 15 * 60 * 1000 });
     })
@@ -31,8 +37,11 @@
     })
     .config(stateConfig)
     .constant('_', window._)
-    .run(function($log, $rootScope, $location){
+    .run(function($log, $rootScope, $location, formlyValidationMessages){
       $log.log("Running the app");
+
+      // custom formly validation messages
+      formlyValidationMessages.addStringMessage('required', 'This field is required');
     });
 
   function stateConfig($stateProvider){
@@ -48,18 +57,29 @@
   	})
     .state('form', {
       abstract: true,
-      template: '<ui-view/>',
+      //template: '<ui-view/>',
+      templateUrl: 'js/partials/form.html',
+      controller: 'FormController',
+      controllerAs: 'vm',
       resolve: {
 
       }
   	})
-    .state('form.details', {
-  		url: '/form',
-  		templateUrl: 'js/partials/form.html',
-  		controller: 'FormController',
-      controllerAs: 'vm',
-      resolve: {
-      }
+    .state('form.your-details', {
+  		url: '/form/details',
+  		templateUrl: 'js/partials/your-details.html',
+  	})
+    .state('form.your-offence', {
+  		url: '/form/offence',
+  		templateUrl: 'js/partials/your-offence.html',
+  	})
+    .state('form.declaration', {
+  		url: '/form/declaration',
+  		templateUrl: 'js/partials/declaration.html',
+  	})
+    .state('form.review', {
+  		url: '/form/review',
+  		templateUrl: 'js/partials/review.html',
   	})
     .state('form.finish', {
   		url: '/submitted',
