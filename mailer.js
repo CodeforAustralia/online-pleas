@@ -44,7 +44,7 @@ var mailer = {
     //var fileStat = fs.statSync(path);
     // create the attachement filestream
     var attch = new mailgun.Attachment({data: path, filename: 'attachment.pdf'});
-    console.log(attch);
+    //console.log(attch);
 
     message.attachment = attch;
     this.send(message, callback);

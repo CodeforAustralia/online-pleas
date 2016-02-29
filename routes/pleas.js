@@ -36,10 +36,10 @@ router.post('/', function(req, res, next) {
   fs.readFile('./views/plea.jade', 'utf8', function(err, data){
     var baseurl = req.protocol + '://' + req.get('host');
     if (err) throw err;
-    console.log(data);
+    //console.log(data);
     var fn = jade.compile(data);
     var html = fn({base_url: baseurl, pretty_data: cleanupLabels(plea), data: plea});
-    console.log(html);
+    //console.log(html);
 
     var pdf_opts = {
       border: {
@@ -53,7 +53,7 @@ router.post('/', function(req, res, next) {
     // convert it to a pdf
     pdf.create(html, pdf_opts).toFile('./test.pdf', function(err, res) {
       if (err) return console.log(err);
-      console.log(res); // { filename: '/app/businesscard.pdf' }
+      //console.log(res); // { filename: '/app/businesscard.pdf' }
 
       var file = res.filename;
       // create the file stream and get the file stats
@@ -69,7 +69,7 @@ router.post('/', function(req, res, next) {
       mailer.sendWithAttachment(email, file, function(error, response){
         if (error) return console.error("There was a problem sending your email", error);
 
-        console.log(response);
+        //console.log(response);
       });
 
     });

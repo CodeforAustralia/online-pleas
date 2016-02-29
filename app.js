@@ -26,11 +26,13 @@ app.use(compression());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // set the static asset path
-app.use('/static', express.static('public'));
+app.use('/op-static', express.static('public'));
 
 app.use('/', routes);
 app.use('/users', users);
 app.use('/pleas', pleas);
+app.use('/fail/', pleas);
+app.use('/api/', pleas);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
