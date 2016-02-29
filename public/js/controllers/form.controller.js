@@ -6,12 +6,32 @@
     .controller('FormController', FormController);
 
   /*@ngInject*/
-  function FormController($scope, $log, $rootScope, $state, $alert){
+  function FormController($scope, $log, $rootScope, $state, $alert, $http, $interval){
 
     var vm = this;
 
     vm.place = null;
     vm.errors = [];
+
+    vm.submit = function(){
+      var fields = angular.copy(vm.model);
+      fields.address = cleanupGoogleAddress(fields.address);
+      fields.plead_guilty = (fields.plead_guilty) ? "YES" : "NO";
+      fields.acknowledgement = (fields.acknowledgement) ? "YES" : "NO";
+      
+      $http.post("pleas", fields)
+        .then(function(){
+          $state.go('form.finish');
+        }, function(){
+          $log.log("Show an error");
+          error();
+        });
+    };
+
+    function cleanupGoogleAddress(address){
+      // extract the parts we need from the google address
+      return address.formatted_address;
+    }
 
     vm.prev = function(prev_step){
       vm.errors = [];
@@ -64,7 +84,7 @@
     vm.fields = {};
     vm.fields.your_details = [
       {
-        key: 'first-name',
+        key: 'first_name',
         type: 'input',
         templateOptions: {
           label: 'Your first name',
@@ -73,7 +93,7 @@
         },
       },
       {
-        key: 'last-name',
+        key: 'last_name',
         type: 'input',
         templateOptions: {
           label: 'Your last name',
@@ -223,7 +243,8 @@
     ];
 
     function error(){
-      new_alert = $alert({
+      $log.log("ERROR");
+      $alert({
         title: 'Holy guacamole!',
         content: 'Best check yo self, you\'re not looking too good.',
         type: 'danger',
@@ -232,8 +253,6 @@
         duration: 2500,
         dismissable: true
       });
-
-      new_alert.show();
     }
 
     function success(callback){
@@ -252,7 +271,6 @@
 
     function init(){
       $log.log("Loaded the form controller");
-      success();
     }
 
     init();

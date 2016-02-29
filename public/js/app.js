@@ -67,19 +67,19 @@
       }
   	})
     .state('form.your-details', {
-  		url: '/form/details',
+  		//url: '/form/details',
   		templateUrl: 'js/partials/your-details.html',
   	})
     .state('form.your-offence', {
-  		url: '/form/offence',
+  		//url: '/form/offence',
   		templateUrl: 'js/partials/your-offence.html',
   	})
     .state('form.declaration', {
-  		url: '/form/declaration',
+  		//url: '/form/declaration',
   		templateUrl: 'js/partials/declaration.html',
   	})
     .state('form.review', {
-  		url: '/form/review',
+  		//url: '/form/review',
   		templateUrl: 'js/partials/review.html',
   	})
     .state('form.finish', {

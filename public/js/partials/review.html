@@ -1,8 +1,11 @@
-<div class="row review">
+<div class="review">
   <h3>Your details</h3>
   <ul>
-    <li><strong>Your name:</strong><br/>
-      {{ vm.model.name }}
+    <li><strong>First name:</strong><br/>
+      {{ vm.model.first_name }}
+    </li>
+    <li><strong>Last name:</strong><br/>
+      {{ vm.model.last_name }}
     </li>
     <li><strong>Preferred contact:</strong><br/>
       {{ vm.model.contact_method }}
@@ -40,4 +43,16 @@
       {{ vm.model.plead_guilty ? "YES" : "NO" }}
     </li>
   </ul>
+</div>
+<div class="col-xs-6 no-padding">
+  <button class="btn btn-default" ng-click="vm.prev('your_details')">
+    <span class="fa fa-chevron-left"></span>
+    Previous
+  </button>
+</div>
+<div class="col-xs-6 text-right no-padding">
+  <button class="btn btn-default" ng-click="vm.submit()">
+    Submit
+    <span class="fa fa-chevron-right"></span>
+  </button>
 </div>

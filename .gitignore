@@ -1,3 +1,5 @@
+*.pdf
+
 /bootstrap/compiled.php
 /vendor
 composer.phar
