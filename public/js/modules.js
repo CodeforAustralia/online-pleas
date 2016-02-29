@@ -12,5 +12,6 @@ angular.module('njcGuiltyPleas', [
   'formly',
   'formlyBootstrap',
   'multiStepForm',
-  'mgcrea.ngStrap'
+  'mgcrea.ngStrap',  
+  'google.places'
 ]);

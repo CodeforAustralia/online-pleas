@@ -10,6 +10,7 @@
 
     var vm = this;
 
+    vm.place = null;
     vm.errors = [];
 
     vm.prev = function(prev_step){
@@ -79,6 +80,19 @@
           placeholder: 'Enter your last name',
           required: true
         }
+      },
+      {
+        key: 'address',
+        type: 'input',
+        templateOptions: {
+          label: 'Your address',
+          placeholder: 'Enter your address',
+          required: true,
+          'g-places-autocomplete':'g-places-autocomplete'
+        },
+        ngModelAttrs: {
+          'g-places-autocomplete': {attribute: 'g-places-autocomplete'}
+        },
       },
       {
         key: 'birthday',
