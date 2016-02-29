@@ -62,8 +62,7 @@ router.post('/', function(req, res, next) {
         from: 'ezekiel@codeforaustralia.org',
         to: 'theatlasroom@gmail.com', // comma separated list
         subject: 'Subject Line',
-        text: 'Text contents.',
-        html: '<b>Text contents.</b>',
+        text: 'Hello\nA new guilty plea has been submitted. \nYou will find the plea attached to this email.'
       };
 
 
