@@ -29,7 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('trust proxy', true);
 
 // set the static asset path
-app.use('/op-static', express.static('public'));
+app.use('/online-pleas/static', express.static('public'));
 
 app.use('/pleas', pleas);
 app.use('/', routes);
