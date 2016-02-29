@@ -9,6 +9,19 @@
     })
     .config(function(formlyConfigProvider){
       // custom determiniation if the forms error fields should be displayed
+      var $log =  angular.injector(['ng']).get('$log');
+      $log.log("CONFIG");
+      formlyConfigProvider.setType({
+        extends: 'input',
+        name: 'input-with-note',
+        templateUrl: 'js/partials/input-with-note.html'
+      });
+
+      formlyConfigProvider.setWrapper({
+        name: 'note',
+        templateUrl: 'js/partials/field-note.html'
+      });
+
       formlyConfigProvider.extras.errorExistsAndShouldBeVisibleExpression = function($viewValue, $modelValue, scope) {
           return (scope.fc.$invalid && scope.form.$submitted);
       };

@@ -6,7 +6,7 @@
     .controller('FormController', FormController);
 
   /*@ngInject*/
-  function FormController($scope, $log, $rootScope, $state, $alert, $tooltip){
+  function FormController($scope, $log, $rootScope, $state, $alert){
 
     var vm = this;
 
@@ -53,66 +53,12 @@
       }
     };
 
-    /*vm.next = function(){
-      $log.log("Next func");
-      vm.steps.$nextStep();
-    };
-
-    vm.checkFields = function(){
-      // $nextStep();
-      $log.log("STEP CHANGE");
-      //$log.log("VALID:");
-      //$log.log($getActiveStep().valid);
-      return false;
-    };*/
-
-    //var new_alert;
-    vm.new_tooltip = function(elem,title){
-      $log.log("NEW TOOLTIP");
-      //elem = angular.element(elem.id);
-      $log.log(elem);
-      var tar = angular.element(document.querySelector("#" + elem.id));
-      $log.log(tar);
-
-      $tooltip(tar, {
-        title: title,
-        placement: 'right',
-        trigger: 'hover'
-      });
-    };
-
     vm.finish = function(){
       $log.log("FINISHED");
       $state.go("form.finish");
     };
 
     vm.model = {};
-
-    /*// TRY: https://scotch.io/tutorials/angularjs-multi-step-form-using-ui-router
-
-    vm.steps = [
-      {
-        templateUrl: 'js/partials/your-details.html',
-        title: 'Your details',
-        hasForm: true,
-        controller: 'YourDetailsFormController',
-      },
-      {
-        templateUrl: 'js/partials/your-offence.html',
-        title: 'Your offence',
-        hasForm: true,
-      },
-      {
-        templateUrl: 'js/partials/declaration.html',
-        title: 'Declaration',
-        hasForm: true,
-      },
-      {
-        templateUrl: 'js/partials/review.html',
-        title: 'Review your plea',
-        hasForm: true,
-      }
-    ];*/
 
     vm.fields = {};
     vm.fields.your_details = [
@@ -124,15 +70,6 @@
           placeholder: 'Enter your first name',
           required: true,
         },
-        ngModelAttrs: {
-          'bs-tooltip': {attribute: 'bs-tooltip'},
-          'data-trigger': {attribute: 'data-trigger'},
-          'data-placement': {attribute: 'data-placement'},
-          'data-container': {attribute: 'data-container'},
-          'data-type': {attribute: 'data-type'},
-          'data-title': {attribute: 'data-title'},
-          'data-animation': {attribute: 'data-animation'}
-        }
       },
       {
         key: 'last-name',
@@ -185,19 +122,18 @@
       {
         key: 'hearing_date',
         type: 'input',
+        wrapper: 'note',
         templateOptions: {
           label: 'Date of your hearing',
           placeholder: 'Enter the date of your hearing',
           required: true,
-          'bs-datepicker': 'bs-datepicker'
+          'bs-datepicker': 'bs-datepicker',
+          form_field_note:'This date is located on your summons document in the section "Where will the case be heard?"'
+          //'data-template-url':'js/partials/field-hearing-date-note.html',
         },
         ngModelAttrs: {
-          'bs-datepicker': {
-            attribute: 'bs-datepicker'
-          },
-          'form-note': {
-            attribute: 'This date is located on your summons document in the section "Where will the case be heard?"'
-          }
+          'bs-datepicker': {attribute: 'bs-datepicker'},
+          'form-field-note': {attribute: 'form-field-note'}
         }
       },
       {
@@ -218,15 +154,15 @@
       {
         key: 'offence_number', // Maybe make the form 'extra informatioon a directive or something, slots in after the correct field etc'
         type: 'input',
+        wrapper: 'note',
         templateOptions: {
           label: 'MNI/JAID',
           placeholder: 'Enter your MNI/JAID reference number',
-          required: false
+          required: false,
+          form_field_note: 'This reference number may appear on your summons document'
         },
         ngModelAttrs: {
-          'form-note': {
-            attribute: "This reference number may appear on your summons document"
-          }
+          form_field_note: {attribute: 'form-field-note'}
         }
       },
       {
@@ -241,14 +177,14 @@
       {
         key: 'message',
         type: 'textarea',
+        wrapper: 'note',
         templateOptions: {
           label: 'Message to the Magistrate',
           placeholder: 'Enter a message to be sent to the magistrate',
+          form_field_note: 'This might include explaining why you offended, what you\'ve done to repair the harm, or things you\'d like the magistrate to consider when deciding your sentence.'
         },
         ngModelAttrs: {
-          'form-note': {
-            attribute: "This might include explaining why you offended, what you've done to repair the harm, or things you'd like the magistrate to consider when deciding your sentence."
-          }
+          form_field_note: {attribute: 'form-field-note'}
         }
       },
     ];
