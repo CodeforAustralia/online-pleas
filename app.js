@@ -25,14 +25,14 @@ app.use(cookieParser());
 app.use(compression());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// use this because we are behind a proxy
+app.set('trust proxy', true);
+
 // set the static asset path
 app.use('/op-static', express.static('public'));
 
-app.use('/', routes);
-app.use('/users', users);
 app.use('/pleas', pleas);
-app.use('/fail/', pleas);
-app.use('/api/', pleas);
+app.use('/', routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
