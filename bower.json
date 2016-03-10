@@ -1,5 +1,5 @@
 {
-  "name": "njc-guilty-pleas",
+  "name": "njc-online-pleas",
   "description": "Proof of concept for online guilty pleas",
   "main": "index.js",
   "authors": [

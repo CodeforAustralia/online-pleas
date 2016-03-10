@@ -60,3 +60,4 @@ screenshots/*
 /public/vendor
 /public/build
 /app/views/build
+.tags*

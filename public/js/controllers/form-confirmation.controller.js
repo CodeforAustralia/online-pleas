@@ -2,7 +2,7 @@
   'use strict';
   // App bootstrapping + DI
   /*@ngInject*/
-  angular.module('njcGuiltyPleas')
+  angular.module('njcOnlinePleas')
     .controller('FormConfirmationController', FormConfirmationController);
 
   /*@ngInject*/

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('njcGuiltyPleas', [
+angular.module('njcOnlinePleas', [
   'ui.router',
   'angular-spinkit',
   'ngResource',
@@ -12,6 +12,6 @@ angular.module('njcGuiltyPleas', [
   'formly',
   'formlyBootstrap',
   'multiStepForm',
-  'mgcrea.ngStrap',  
+  'mgcrea.ngStrap',
   'google.places'
 ]);

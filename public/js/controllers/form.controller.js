@@ -2,11 +2,11 @@
   'use strict';
   // App bootstrapping + DI
   /*@ngInject*/
-  angular.module('njcGuiltyPleas')
+  angular.module('njcOnlinePleas')
     .controller('FormController', FormController);
 
   /*@ngInject*/
-  function FormController($scope, $log, $rootScope, $state, $alert, $http, $interval){
+  function FormController($scope, $log, $rootScope, $state, $alert, $http, $interval, $sce){
 
     var vm = this;
 
@@ -18,7 +18,7 @@
       fields.address = cleanupGoogleAddress(fields.address);
       fields.plead_guilty = (fields.plead_guilty) ? "YES" : "NO";
       fields.acknowledgement = (fields.acknowledgement) ? "YES" : "NO";
-      
+
       $http.post("pleas", fields)
         .then(function(){
           $state.go('form.finish');
@@ -81,31 +81,35 @@
 
     vm.model = {};
 
+    vm.showMinorOffences = function(){
+      $log.log("SHOW MINOR OFFENCES");
+    };
+
     vm.fields = {};
     vm.fields.your_details = [
       {
-        key: 'first_name',
-        type: 'input',
+        key: 'given_name',
+        type: 'customInput',
         templateOptions: {
-          label: 'Your first name',
+          label: 'Given Name(s)',
           placeholder: 'Enter your first name',
           required: true,
         },
       },
       {
-        key: 'last_name',
-        type: 'input',
+        key: 'family_name',
+        type: 'customInput',
         templateOptions: {
-          label: 'Your last name',
+          label: 'Family Name',
           placeholder: 'Enter your last name',
           required: true
         }
       },
       {
         key: 'address',
-        type: 'input',
+        type: 'customInput',
         templateOptions: {
-          label: 'Your address',
+          label: 'Residential address',
           placeholder: 'Enter your address',
           required: true,
           'g-places-autocomplete':'g-places-autocomplete'
@@ -116,7 +120,7 @@
       },
       {
         key: 'birthday',
-        type: 'input',
+        type: 'customInput',
         templateOptions: {
           label: 'Date of Birth',
           placeholder: 'Enter your date of birth',
@@ -131,10 +135,11 @@
       },
       {
         key: 'contact_method',
-        type: 'select',
+        type: 'customSelect',
+        //wrapper: ['customLabel', 'customHasError'],
         templateOptions: {
           label: 'Preferred contact',
-          placeholder: 'Select a preferred contact method',
+          placeholder: 'select a preferred contact method',
           required: true,
           options: [
             {name: "Phone", value: "phone"}, {name: "Email", value: "email"}
@@ -143,7 +148,7 @@
       },
       {
         key: 'contact',
-        type: 'input',
+        type: 'customInput',
         templateOptions: {
           label: 'Contact', // make this label dynamic
           placeholder: 'Enter your contact',
@@ -155,7 +160,7 @@
     vm.fields.your_offence = [
       {
         key: 'hearing_date',
-        type: 'input',
+        type: 'customInput',
         wrapper: 'note',
         templateOptions: {
           label: 'Date of your hearing',
@@ -172,7 +177,7 @@
       },
       {
         key: 'offence_date',
-        type: 'input',
+        type: 'customInput',
         templateOptions: {
           label: 'Date of your offence',
           placeholder: 'Enter the date your offence was committed',
@@ -186,31 +191,20 @@
         },
       },
       {
-        key: 'offence_number', // Maybe make the form 'extra informatioon a directive or something, slots in after the correct field etc'
-        type: 'input',
-        wrapper: 'note',
-        templateOptions: {
-          label: 'MNI/JAID',
-          placeholder: 'Enter your MNI/JAID reference number',
-          required: false,
-          form_field_note: 'This reference number may appear on your summons document'
-        },
-        ngModelAttrs: {
-          form_field_note: {attribute: 'form-field-note'}
-        }
-      },
-      {
         key: 'offence_details',
-        type: 'textarea',
+        type: 'customTextarea',
+        wrapper: 'noteModal',
         templateOptions: {
           label: 'Details of your offence(s)',
-          placeholder: 'Enter the details of your offence(s)',
-          required: true
+          placeholder: 'Enter the details of your offence(s) as described on your summons notice',
+          required: true,
+          modal_url: 'js/partials/minor-offences.html',
+          form_field_note: 'Only some offences can be submitted'
         }
       },
       {
         key: 'message',
-        type: 'textarea',
+        type: 'customTextarea',
         wrapper: 'note',
         templateOptions: {
           label: 'Message to the Magistrate',
@@ -226,7 +220,7 @@
     vm.fields.declaration = [
       {
         key: 'acknowledgement',
-        type: 'checkbox',
+        type: 'customCheckbox',
         templateOptions: {
           label: 'I acknowledge I may plead guilty or not guilty. I acknowledge no police officer or other person told me to plead guilty',
           required: true
@@ -234,7 +228,7 @@
       },
       {
         key: 'plead_guilty',
-        type: 'checkbox',
+        type: 'customCheckbox',
         templateOptions: {
           label: 'I plead guilty to the offence(s) listed in this form. This plea is entered voluntarily of my own free will',
           required: true

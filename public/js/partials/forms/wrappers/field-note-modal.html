@@ -1,0 +1,21 @@
+<div class="">
+
+  <div class="">
+    <strong class="control-label" ng-if="options.templateOptions.custom_label">
+      {{options.templateOptions.custom_label}}
+      <span ng-if="options.templateOptions.required">*</span>
+    </strong>
+  </div>
+
+  <div class="form-field-note">
+    <p>
+      <span class="fa fa-info-circle"></span>
+      <a href="" data-template-url="{{options.templateOptions.modal_url}}" bs-modal="modal">{{options.templateOptions.form_field_note}}</a>
+    </p>
+  </div>
+
+  <div class="">
+    <formly-transclude></formly-transclude>
+  </div>
+
+</div>
