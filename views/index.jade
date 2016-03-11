@@ -1,11 +1,20 @@
 extends layout
 
 block content
-  header.container
-    .row
-      .col-xs-12
-        h1 NJC Online pleas
-  main(ui-view).container.page
-  footer.container
-    .row
-      .col-xs-12
+  header.global-header
+    .container
+      .row
+        .col-xs-12
+          a.header-logo
+            img(src="/online-pleas/static/imgs/njc-logo.png")
+            h1.header-title
+              NJC
+
+  main
+    //.container
+    .page(ui-view)
+
+  footer.global-footer
+    .container
+      .row
+        .col-xs-12

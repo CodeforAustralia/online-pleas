@@ -199,7 +199,7 @@
           placeholder: 'Enter the details of your offence(s) as described on your summons notice',
           required: true,
           modal_url: 'js/partials/minor-offences.html',
-          form_field_note: 'Only some offences can be submitted'
+          form_field_note: 'Offences for which you can submit a plea online'
         }
       },
       {
