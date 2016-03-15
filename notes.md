@@ -1,21 +1,21 @@
 # Notes
 * Remove uneeded scripts + add build step
 * Add e2e + unit tests
-* Center the image in the banner
+* Center the image in the banner (mobile)
 * Google Tag Manager
 * Seperate fields for the DOB
   - must be a past date
 * Accept custom addresses - extract the street address
-* Reduce the size of the form errors
-  -
+//* Reduce the size of the form errors
+  //-
 * Fix up the error messages + alerts (see page 95 of forms guide)
   - add icons
   - "To continue, please.."  
 * Character count for message to show how many characters remaining (max 600)
   - put the counter above the field and have it starting from the max, counting down
-* increase the button sizes
-  - make the back button less prominent than the
-* Add a cancel button + trigger a 'are you sure modal?'
+//* increase the button sizes
+  //- make the back button less prominent than the
+//* Add a cancel button + trigger a 'are you sure modal?'
 * Add DB storage - mongo
 * Setup SSL certificate
 * Add steps for the pages:

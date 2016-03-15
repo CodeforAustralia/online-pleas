@@ -1,9 +1,9 @@
 /*
 * Variables and fonts
 */
-@import url("//fonts.googleapis.com/css?family=Roboto:400,300,700");
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,700);
 body {
-  font-family: "Roboto", helvetica, arial, sans-serif;
+  font-family: "Roboto", "helvetica", "verdana", "sans-serif";
   font-size: 12pt;
 }
 main,
@@ -106,11 +106,22 @@ ul {
 .btn-secondary {
   background: #D6D6D6;
 }
+.btn-cancel {
+  background: none;
+  text-decoration: underline;
+  color: #37465D;
+}
 .alert,
 .btn,
 .form-control {
   border: none;
   border-radius: 0;
+}
+.form-control {
+  border: solid 1px #D6D6D6;
+}
+.alert-title {
+  font-weight: bold;
 }
 .alert-success {
   background: #6AB0AA;

@@ -6,12 +6,29 @@
     .controller('FormController', FormController);
 
   /*@ngInject*/
-  function FormController($scope, $log, $rootScope, $state, $alert, $http, $interval, $sce){
+  function FormController($scope, $log, $rootScope, $state, $alert, $modal, $http, $interval){
 
     var vm = this;
 
     vm.place = null;
     vm.errors = [];
+
+    vm.cancelForm = function(){
+      var exitModal = $modal({scope: $scope, show: true, content: "Are you sure you would like to exit the form?", templateUrl: "js/partials/yes-no-modal.html"});
+
+      $scope.exitForm = function(confirm){
+        $log.log("Confirming");
+        if (confirm){
+          exitModal.hide();
+          resetForm();
+          $state.go("home");
+        }
+        else {
+          exitModal.hide();
+        }
+      };
+
+    };
 
     vm.submit = function(){
       var fields = angular.copy(vm.model);
@@ -204,11 +221,12 @@
       },
       {
         key: 'message',
-        type: 'customTextarea',
+        type: 'customTextareaWithCounter',
         wrapper: 'note',
         templateOptions: {
           label: 'Message to the Magistrate',
           placeholder: 'Enter a message to be sent to the magistrate',
+          maxlength: 600,
           form_field_note: 'This might include explaining why you offended, what you\'ve done to repair the harm, or things you\'d like the magistrate to consider when deciding your sentence.'
         },
         ngModelAttrs: {
@@ -235,6 +253,12 @@
         }
       }
     ];
+
+
+    function resetForm(){
+      vm.errors = {};
+      vm.model = {};
+    }
 
     function error(){
       $log.log("ERROR");

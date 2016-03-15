@@ -40,6 +40,10 @@
           name: 'customLabel',
           templateUrl: 'js/partials/forms/wrappers/label.html',
         },
+        /*{
+          name: 'customLabelWithCounter',
+          templateUrl: 'js/partials/forms/wrappers/label-with-counter.html',
+        },*/
         {
           name: 'customHasError',
           templateUrl: 'js/partials/forms/wrappers/has-error.html',
@@ -83,6 +87,11 @@
       {
         extends: 'textarea',
         name: 'customTextarea',
+        wrapper: ['customLabel', 'customHasError']
+      },
+      {
+        extends: 'textarea',
+        name: 'customTextareaWithCounter',
         wrapper: ['customLabel', 'customHasError']
       }]);
 

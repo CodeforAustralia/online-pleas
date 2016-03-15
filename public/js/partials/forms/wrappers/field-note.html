@@ -1,20 +1,21 @@
 <div class="">
 
   <div class="">
-    <strong class="control-label" ng-if="options.templateOptions.custom_label">
-      {{options.templateOptions.custom_label}}
-      <span ng-if="options.templateOptions.required">*</span>
+    <strong class="control-label" ng-if="to.custom_label">
+      {{to.custom_label}}
+      <span ng-if="to.required">*</span>
     </strong>
   </div>
 
   <div class="form-field-note">
     <p>
       <span class="fa fa-info-circle"></span>
-      {{options.templateOptions.form_field_note}}
+      {{to.form_field_note}}
     </p>
   </div>
 
-  <div class="">
+  <div ng-class="{'has-error text-danger': fc.$viewValue.length > to.maxlength }">
+    <span ng-if="to.maxlength" class="form-character-count">Characters left {{ to.maxlength - fc.$viewValue.length }}</span>
     <formly-transclude></formly-transclude>
   </div>
 

@@ -1,4 +1,10 @@
 <div class="row">
+  <div class="col-xs-12 alert alert-danger" ng-if="vm.form.declaration.$invalid && vm.form.declaration.$submitted">
+    <h3 class="alert-title">Form errors</h3>
+    <p ng-repeat="error in vm.errors">{{ error.message }}</p>
+  </div>
+</div>
+<div class="row">
   <div class="col-xs-12">
     <h3>Offences</h3>
   </div>
@@ -11,22 +17,18 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-xs-12 alert alert-danger" ng-if="vm.form.declaration.$invalid && vm.form.declaration.$submitted">
-    <h3>Form errors</h3>
-    <p ng-repeat="error in vm.errors">{{ error.message }}</p>
-  </div>
-</div>
-<div class="row">
-  <form class="col-xs-12" name="vm.form.declaration" novalidate>
+  <form class="online-plea-form" class="col-xs-12" name="vm.form.declaration" novalidate>
     <formly-form model="vm.model" fields="vm.fields.declaration">
       <div class="col-xs-6 no-padding">
-        <button class="btn btn-default" ng-click="vm.prev('your_offence')">
+        <button type="button" class="btn btn-default" ng-click="vm.prev('your_offence')">
           <span class="fa fa-chevron-left"></span>
           Previous
         </button>
+        &nbsp;
+        <button type="button" class="btn btn-cancel no-padding" ng-click="vm.cancelForm()">Cancel</button>
       </div>
       <div class="col-xs-6 text-right no-padding">
-        <button class="btn btn-default" ng-click="vm.next('declaration', 'review')">
+        <button type="submit" class="btn btn-default" ng-click="vm.next('declaration', 'review')">
           Next
           <span class="fa fa-chevron-right"></span>
         </button>

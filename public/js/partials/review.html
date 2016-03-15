@@ -42,13 +42,15 @@
   </ul>
 </div>
 <div class="col-xs-6 no-padding">
-  <button class="btn btn-default" ng-click="vm.prev('your_details')">
+  <button type="button" class="btn btn-default" ng-click="vm.prev('your_details')">
     <span class="fa fa-chevron-left"></span>
     Previous
   </button>
+  &nbsp;
+  <button type="button" class="btn btn-cancel no-padding" ng-click="vm.cancelForm()">Cancel</button>
 </div>
 <div class="col-xs-6 text-right no-padding">
-  <button class="btn btn-primary" ng-click="vm.submit()">
+  <button type="submit" class="btn btn-primary" ng-click="vm.submit()">
     Submit
     <span class="fa fa-chevron-right"></span>
   </button>

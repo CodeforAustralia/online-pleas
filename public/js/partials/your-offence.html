@@ -1,17 +1,19 @@
 <div class="col-xs-12 alert alert-danger" ng-if="vm.form.your_offence.$invalid && vm.form.your_offence.$submitted">
-  <h3>Errors</h3>
+  <h3 class="alert-title">Form errors</h3>
   <p ng-repeat="error in vm.errors">{{ error.message }}</p>
 </div>
-<form name="vm.form.your_offence" novalidate>
+<form class="online-plea-form" name="vm.form.your_offence" novalidate>
   <formly-form model="vm.model" fields="vm.fields.your_offence">
     <div class="col-xs-6 no-padding">
-      <button class="btn btn-default" ng-click="vm.prev('your_details')">
+      <button type="button" class="btn btn-default" ng-click="vm.prev('your_details')">
         <span class="fa fa-chevron-left"></span>
         Previous
       </button>
+      &nbsp;
+      <button type="button" class="btn btn-cancel no-padding" ng-click="vm.cancelForm()">Cancel</button>
     </div>
     <div class="col-xs-6 text-right no-padding">
-      <button class="btn btn-default" ng-click="vm.next('your_offence', 'declaration')">
+      <button type="submit" class="btn btn-default" ng-click="vm.next('your_offence', 'declaration')">
         Next
         <span class="fa fa-chevron-right"></span>
       </button>
