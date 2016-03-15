@@ -1,9 +1,9 @@
 /*
 * Variables and fonts
 */
-@import url(https://fonts.googleapis.com/css?family=Oxygen:400,300,700);
+@import url("//fonts.googleapis.com/css?family=Roboto:400,300,700");
 body {
-  font-family: "Oxygen, sans-serif";
+  font-family: "Roboto", helvetica, arial, sans-serif;
   font-size: 12pt;
 }
 main,

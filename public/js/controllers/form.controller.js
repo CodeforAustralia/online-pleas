@@ -92,7 +92,7 @@
         type: 'customInput',
         templateOptions: {
           label: 'Given Name(s)',
-          placeholder: 'Enter your first name',
+          //placeholder: 'Enter your given name(s)',
           required: true,
         },
       },
@@ -101,7 +101,7 @@
         type: 'customInput',
         templateOptions: {
           label: 'Family Name',
-          placeholder: 'Enter your last name',
+          //placeholder: 'Enter your family name',
           required: true
         }
       },
@@ -110,7 +110,7 @@
         type: 'customInput',
         templateOptions: {
           label: 'Residential address',
-          placeholder: 'Enter your address',
+          //placeholder: 'Enter your address',
           required: true,
           'g-places-autocomplete':'g-places-autocomplete'
         },
@@ -125,7 +125,7 @@
           label: 'Date of Birth',
           placeholder: 'Enter your date of birth',
           required: true,
-          'bs-datepicker': 'bs-datepicker'
+          //'bs-datepicker': 'bs-datepicker'
         },
         ngModelAttrs: {
           'bs-datepicker': {
@@ -139,7 +139,7 @@
         //wrapper: ['customLabel', 'customHasError'],
         templateOptions: {
           label: 'Preferred contact',
-          placeholder: 'select a preferred contact method',
+          //placeholder: 'select a preferred contact method',
           required: true,
           options: [
             {name: "Phone", value: "phone"}, {name: "Email", value: "email"}
