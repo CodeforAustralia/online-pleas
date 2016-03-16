@@ -55,7 +55,11 @@
         {
           name: 'noteModal',
           templateUrl: 'js/partials/forms/wrappers/field-note-modal.html'
-        }
+        },
+        {
+          name: 'dobSeperateFields',
+          templateUrl: 'js/partials/forms/wrappers/dob-seperate-fields.html'
+        },
       ]);
 
       // custom formly templates
@@ -93,10 +97,17 @@
         extends: 'textarea',
         name: 'customTextareaWithCounter',
         wrapper: ['customLabel', 'customHasError']
+      },
+      {
+        extends: 'input',
+        name: 'customDob',
+        templateUrl: "js/partials/forms/custom-dob.html",
+        wrapper: ['customLabel', 'customHasError']
       }]);
 
       // custom formly validation messages
-      formlyValidationMessages.addStringMessage('required', 'This field is required');
+      //formlyValidationMessages.addStringMessage('required', 'This field is required');
+      //formlyValidationMessages.addStringMessage('maxlength', '');
     });
 
   function stateConfig($stateProvider){

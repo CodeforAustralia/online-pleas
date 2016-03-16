@@ -13,6 +13,8 @@
     vm.place = null;
     vm.errors = [];
 
+    vm.cleanupDate = formatDateForCourtlink;
+
     vm.cancelForm = function(){
       var exitModal = $modal({scope: $scope, show: true, content: "Are you sure you would like to exit the form?", templateUrl: "js/partials/yes-no-modal.html"});
 
@@ -35,6 +37,7 @@
       fields.address = cleanupGoogleAddress(fields.address);
       fields.plead_guilty = (fields.plead_guilty) ? "YES" : "NO";
       fields.acknowledgement = (fields.acknowledgement) ? "YES" : "NO";
+      fields.birthday = formatDateForCourtlink(vm.model.birthday);
 
       $http.post("pleas", fields)
         .then(function(){
@@ -44,6 +47,21 @@
           error();
         });
     };
+
+    function formatDateForCourtlink(date){
+      // takes an object with {year, month, day} => returns a formatted date
+      // return the shortform
+      var d = new Date(date.year, date.month, date.day);
+      var monthnames = ["January", "February", "March", "April", "May", "June",
+                        "July", "August", "September", "October", "November", "December"];
+      return d.getDate() + " " + monthnames[d.getMonth()].slice(0, 3) + " " + d.getFullYear();
+    }
+
+    function formatDateYMD(date){
+      // convert the date to YMD
+      var d = new Date(date.year, date.month, date.day);
+      return d.getFullYear() + "-" + (d.getMonth()+1) + d.getDate();
+    }
 
     function cleanupGoogleAddress(address){
       // extract the parts we need from the google address
@@ -137,7 +155,8 @@
       },
       {
         key: 'birthday',
-        type: 'customInput',
+        //type: 'customInput',
+        type: 'customDob',
         templateOptions: {
           label: 'Date of Birth',
           placeholder: 'Enter your date of birth',
@@ -149,6 +168,33 @@
             attribute: 'bs-datepicker'
           }
         },
+        validators: {
+          pastDate: {
+            expression: function($viewValue, $modelValue, scope){
+              var value = $modelValue || $viewValue;
+              // just check if the year is less than the current year
+              if (!_.isUndefined(value) && !_.isUndefined(value.year) && value.year.length == 4){
+                var cyear = Date.getFullYear();
+                if (value.year < cyear){
+                  return true;
+                }
+                return false;
+              }
+              /*if (!_.isUndefined(value)){
+                $log.log(value);
+                value = formatDateYMD(value);
+                var today = formatDateYMD({day: Date.getDate(), month: Date.getMonth(), year: Date.getFullYear() });
+                $log.log(today);
+                if (value < today){
+                  return true;
+                }
+                return false;
+              }*/
+              return true;
+            },
+            message: '$viewValue must be a previous date'
+          }
+        }
       },
       {
         key: 'contact_method',

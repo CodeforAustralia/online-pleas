@@ -1,11 +1,18 @@
 <div class="review">
+  <hr />
   <h3>Your details</h3>
   <ul>
-    <li><strong>First name:</strong><br/>
+    <li><strong>Given name(s):</strong><br/>
       {{ vm.model.given_name }}
     </li>
-    <li><strong>Last name:</strong><br/>
+    <li><strong>Family name:</strong><br/>
       {{ vm.model.family_name }}
+    </li>
+    <li><strong>Address:</strong><br/>
+      {{ vm.model.address }}
+    </li>
+    <li><strong>Date of birth:</strong><br/>
+      {{ vm.cleanupDate(vm.model.birthday) }}
     </li>
     <li><strong>Preferred contact:</strong><br/>
       {{ vm.model.contact_method }}
@@ -14,7 +21,7 @@
       {{ vm.model.contact }}
     </li>
   </ul>
-
+  <hr />
   <h3>Your offence(s)</h3>
   <ul>
     <li><strong>Date of your hearing:</strong><br/>
@@ -30,7 +37,7 @@
       {{ vm.model.message }}
     </li>
   </ul>
-
+  <hr />
   <h3>Your declaration</h3>
   <ul>
     <li><strong>I acknowledge I may plead guilty or not guilty. I acknowledge no police officer or other person told me to plead guilty: </strong>
@@ -40,6 +47,7 @@
       {{ vm.model.plead_guilty ? "YES" : "NO" }}
     </li>
   </ul>
+  <hr />
 </div>
 <div class="col-xs-6 no-padding">
   <button type="button" class="btn btn-default" ng-click="vm.prev('your_details')">
