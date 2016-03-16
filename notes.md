@@ -21,6 +21,7 @@
   - minimise registry handling by formatting the output so the email can be printed directly
   - Group into 'details', 'offence' - don't worry about declaration field
 * Maps - API keys
+* Fix print + email options
 
 ## Done
 * Center the image in the banner (mobile)

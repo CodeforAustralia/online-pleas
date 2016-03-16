@@ -1,0 +1,9 @@
+<div class="form-steps">
+  <ul>
+    <li ng-class="{'active-step':step.id==current,'completed-step':step.id<current}" ng-repeat="step in steps">
+      <span ng-show="step.id<current" class="fa fa-check"></span>
+      <span ng-hide="step.id<current" class="fa fa-circle"></span>
+      &nbsp;{{ step.label }}
+    </li>
+  </ul>
+</div>

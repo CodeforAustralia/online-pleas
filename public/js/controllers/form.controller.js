@@ -10,6 +10,16 @@
 
     var vm = this;
 
+    vm.steps = [
+      {'id':0, 'label': 'Your details'},
+      {'id':1, 'label': 'Your offence'},
+      {'id':2, 'label': 'Declarations'},
+      {'id':3, 'label': 'Review'}
+    ];
+
+    // default to your details
+    vm.current_step_id = 0;
+
     vm.place = null;
     vm.errors = [];
 
@@ -70,6 +80,7 @@
 
     vm.prev = function(prev_step){
       vm.errors = [];
+      vm.current_step_id--;
       $state.go('form.'+prev_step.replace("_", "-"));
     };
 
@@ -81,6 +92,7 @@
       vm.checkRequiredFields(current_step);
       if (vm.errors.length === 0){
         $state.go('form.'+next_step.replace("_", "-"));
+        vm.current_step_id++;
       }
     };
 

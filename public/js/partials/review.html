@@ -1,3 +1,6 @@
+<div class="row">
+  <form-steps class="col-xs-12" steps="vm.steps" current="vm.current_step_id"></form-steps>
+</div>
 <div class="review">
   <hr />
   <h3>Your details</h3>
@@ -9,7 +12,7 @@
       {{ vm.model.family_name }}
     </li>
     <li><strong>Address:</strong><br/>
-      {{ vm.model.address }}
+      {{ vm.model.address.formatted_address }}
     </li>
     <li><strong>Date of birth:</strong><br/>
       {{ vm.cleanupDate(vm.model.birthday) }}
