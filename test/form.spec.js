@@ -44,25 +44,53 @@ var OnlinePleasHome = function() {
 
 var OnlinePleasForm = function(){
   var fields = {
-    'given_name': element(by.name('given_name')),
-    'family_name': element(by.name('family_name')),
-    'address': element(by.name('address')),
-    'birthday_day': element(by.name('birthday[\'day\']')),
-    'birthday_month': element(by.name('birthday[\'month\']')),
-    'birthday_year': element(by.name('birthday[\'year\']')),
-    'contact_method': element(by.name('contact_method')),
-    'contact': element(by.name('contact')),
+    'details': {
+      'given_name': element(by.name('given_name')),
+      'family_name': element(by.name('family_name')),
+      'address': element(by.name('address')),
+      'birthday_day': element(by.name('birthday[\'day\']')),
+      'birthday_month': element(by.name('birthday[\'month\']')),
+      'birthday_year': element(by.name('birthday[\'year\']')),
+      'contact_method': element(by.name('contact_method')),
+      'contact': element(by.name('contact')),
+    },
+    'offence': {
+      'hearing_date': element(by.name('hearing_date')),
+      'offence_date': element(by.name('offence_date')),
+      'offence_details': element(by.name('offence_details')),
+      'message': element(by.name('message'))
+    },
+    'declaration': {
+      'acknowledgement': element(by.name('acknowledgement')),
+      'plead_guilty': element(by.name('plead_guilty')),
+    }
   };
 
+  var d = new Date();
+  var monthnames = ["January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"];
+
   var values = {
-    'given_name': 'Joe',
-    'family_name': 'Bloggs',
-    'address': '123 Fake St, Vic, 3000',
-    'birthday_day': 6,
-    'birthday_month': 8,
-    'birthday_year': 1990,
-    'contact_method': 'phone',
-    'contact': "0040123456",
+    'details': {
+      'given_name': 'Joe',
+      'family_name': 'Bloggs',
+      'address': '123 Fake St, Vic, 3000',
+      'birthday_day': 6,
+      'birthday_month': 8,
+      'birthday_year': 1990,
+      'contact_method': 'phone',
+      'contact': "0040123456",
+    },
+    'offence': {
+      'hearing_date': '19 ' + monthnames[d.getMonth()].slice(0,3) + " " + d.getFullYear(),
+      'offence_date': '01 ' + monthnames[d.getMonth()].slice(0,3) + " " + d.getFullYear(),
+      'offence_details': 'I stole a coffee',
+      'message': 'I was thirsty'
+    },
+    'declaration': {
+      'acknowledgement': true,
+      'plead_guilty': true
+    }
   };
 
   var dropdowns = [
@@ -77,29 +105,28 @@ var OnlinePleasForm = function(){
         options[index].click();
       });
     });
-       /*.then(function(options) {
-         options[index].click();
-       });*/
-    /*if (optionNum){
-      var options = element.findElements(by.tagName('option'))
-        .then(function(options){
-          options[optionNum].click();
-        });
-    }*/
   }
 
-  this.fillInMyDetails = function(){
-    _.each(fields, function(field, key){
-      //console.log(key);
-      //if (dropdowns.indexOf(key) >= 0)
-        //selectDropdownbyNum(field, 1);
-      //else
-        field.sendKeys(values[key]);
+  this.fillForm = function(form){
+    var v = values[form];
+    _.each(fields[form], function(field, key){
+      if (v[key] === true)
+        field.click();
+      else
+        field.sendKeys(v[key]);
     });
   };
 
   this.clickButton = function(name){
     return element(by.buttonText(name)).click();
+  };
+
+  this.getAlertHeadingText = function(){
+    return element(by.css("#confirmation .alert h2")).getText();
+  };
+
+  this.getAlertMessageText = function(){
+    return element(by.css("#confirmation .alert p")).getText();
   };
 };
 
@@ -140,22 +167,34 @@ describe('Online pleas', function() {
 
   });
 
-  fdescribe('Form', function() {
+  describe('Form', function() {
     //beforeEach
     beforeEach(function(){
       browser.driver.get("http://localhost:3000/");
     });
 
-    it('should let me submit the form', function(){
-      var op = new OnlinePleasForm();
+    it('should let me successfully submit the form', function(){
+      var opf = new OnlinePleasForm();
 
-      op.clickButton('Begin');
+      opf.clickButton('Begin');
 
       // should see the your details form
       // fill in the form
-      op.fillInMyDetails();
-      browser.pause();
+      opf.fillForm('details');
+      opf.clickButton('Next');
+      //browser.pause();
+      opf.fillForm('offence');
+      opf.clickButton('Next');
+      //browser.pause();
       // go to the next page
+      //browser.pause();
+      opf.fillForm('declaration');
+      opf.clickButton('Next');
+      // submit the form
+      opf.clickButton('Submit');
+
+      expect(opf.getAlertHeadingText()).toBe("Submitted");
+      expect(opf.getAlertMessageText()).toBe("Your guilty plea has been submitted.");
     });
   });
 
