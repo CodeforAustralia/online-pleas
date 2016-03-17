@@ -135,6 +135,7 @@
     vm.fields = {};
     vm.fields.your_details = [
       {
+        name: 'given_name',
         key: 'given_name',
         type: 'customInput',
         templateOptions: {
@@ -144,6 +145,7 @@
         },
       },
       {
+        name: 'family_name',
         key: 'family_name',
         type: 'customInput',
         templateOptions: {
@@ -153,6 +155,7 @@
         }
       },
       {
+        name: 'address',
         key: 'address',
         type: 'customInput',
         templateOptions: {
@@ -166,6 +169,7 @@
         },
       },
       {
+        name: 'birthday',
         key: 'birthday',
         //type: 'customInput',
         type: 'customDob',
@@ -209,6 +213,7 @@
         }
       },
       {
+        name: 'contact_method',
         key: 'contact_method',
         type: 'customSelect',
         //wrapper: ['customLabel', 'customHasError'],
@@ -222,6 +227,7 @@
         }
       },
       {
+        name: 'contact',
         key: 'contact',
         type: 'customInput',
         templateOptions: {
@@ -234,6 +240,7 @@
 
     vm.fields.your_offence = [
       {
+        name: 'hearing_date',
         key: 'hearing_date',
         type: 'customInput',
         wrapper: 'note',
@@ -251,6 +258,7 @@
         }
       },
       {
+        name: 'offence_date',
         key: 'offence_date',
         type: 'customInput',
         templateOptions: {
@@ -266,6 +274,7 @@
         },
       },
       {
+        name: 'offence_details',
         key: 'offence_details',
         type: 'customTextarea',
         wrapper: 'noteModal',
@@ -278,6 +287,7 @@
         }
       },
       {
+        name: 'message',
         key: 'message',
         type: 'customTextareaWithCounter',
         wrapper: 'note',
@@ -295,6 +305,7 @@
 
     vm.fields.declaration = [
       {
+        name: 'acknowledgement',
         key: 'acknowledgement',
         type: 'customCheckbox',
         templateOptions: {
@@ -303,6 +314,7 @@
         }
       },
       {
+        name: 'plead_guilty',
         key: 'plead_guilty',
         type: 'customCheckbox',
         templateOptions: {
