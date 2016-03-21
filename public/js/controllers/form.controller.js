@@ -126,7 +126,15 @@
       $state.go("form.finish");
     };
 
-    vm.model = {};
+    vm.model = {
+      your_details: {},
+      your_offence: {},
+      declarations: {},
+    };
+
+    vm.model = {
+      contact_method: "email" // default contact method should be email
+    };
 
     vm.showMinorOffences = function(){
       $log.log("SHOW MINOR OFFENCES");
