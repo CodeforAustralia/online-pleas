@@ -12,12 +12,14 @@
     })
     .config(function($datepickerProvider) {
       angular.extend($datepickerProvider.defaults, {
-        dateFormat: 'dd MMM yyyy',
-        modelDateFormat: 'yyyy-MM-dd',
+        modelDateFormat: 'dd MMM yyyy',
+        dateFormat: 'dd/MM/yyyy',
         dateType: 'string',
         startWeek: 1,
         useNative: true,
-        autoclose: true
+        autoclose: true,
+        iconLeft: "fa fa-chevron-left",
+        iconRight: "fa fa-chevron-right"
       });
     })
     .controller('AppController', function ($log, $scope, $rootScope) {

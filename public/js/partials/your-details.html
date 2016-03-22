@@ -1,4 +1,9 @@
 <div class="row">
+  <pre>
+    {{ vm.model | json }}
+  </pre>
+</div>
+<div class="row">
   <form-steps class="col-xs-12" steps="vm.steps" current="vm.current_step_id"></form-steps>
 </div>
 <div class="col-xs-12 alert alert-danger" ng-if="vm.form.your_details.$invalid && vm.form.your_details.$submitted">

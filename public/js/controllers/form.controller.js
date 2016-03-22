@@ -192,18 +192,22 @@
             attribute: 'bs-datepicker'
           }
         },
-        validators: {
+        /*validators: {
           pastDate: {
             expression: function($viewValue, $modelValue, scope){
               var value = $modelValue || $viewValue;
               // just check if the year is less than the current year
-              if (!_.isUndefined(value) && !_.isUndefined(value.year) && value.year.length == 4){
+              $log.log("VALUE: ");
+              $log.log($viewValue);
+              $log.log(vm.model.birthday);
+              return false;
+              /*if (!_.isUndefined(value) && !_.isUndefined(value.year) && value.year.length == 4){
                 var cyear = Date.getFullYear();
                 if (value.year < cyear){
                   return true;
                 }
                 return false;
-              }
+              }*/
               /*if (!_.isUndefined(value)){
                 $log.log(value);
                 value = formatDateYMD(value);
@@ -213,12 +217,12 @@
                   return true;
                 }
                 return false;
-              }*/
+              }* /
               return true;
             },
             message: '$viewValue must be a previous date'
           }
-        }
+        }*/
       },
       {
         name: 'contact_method',
@@ -230,7 +234,7 @@
           //placeholder: 'select a preferred contact method',
           required: true,
           options: [
-            {name: "Phone", value: "phone"}, {name: "Email", value: "email"}
+            {name: "Phone number", value: "phone"}, {name: "Email", value: "email"}
           ],
         }
       },
@@ -242,6 +246,9 @@
           label: 'Contact', // make this label dynamic
           placeholder: 'Enter your contact',
           required: true
+        },
+        expressionProperties: {
+          'templateOptions.label': '"Contact " + model.contact_method'
         }
       },
     ];
