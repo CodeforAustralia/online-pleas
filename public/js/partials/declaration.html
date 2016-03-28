@@ -4,7 +4,7 @@
 <div class="row">
   <div class="col-xs-12 alert alert-danger" ng-if="vm.form.declaration.$invalid && vm.form.declaration.$submitted">
     <h3 class="alert-title">Form errors</h3>
-    <p ng-repeat="error in vm.errors">{{ error.message }}</p>
+    <formly-error-summary form="vm.form" fields="vm.fields.declaration"></formly-error-summary>
   </div>
 </div>
 <div class="row">

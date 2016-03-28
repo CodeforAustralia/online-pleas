@@ -15,7 +15,8 @@
       {{ vm.model.address.formatted_address }}
     </li>
     <li><strong>Date of birth:</strong><br/>
-      {{ vm.cleanupDate(vm.model.birthday) }}
+      <!--{{ vm.cleanupDate(vm.model.birthday) }}-->
+      {{ vm.model.birthday }}
     </li>
     <li><strong>Preferred contact:</strong><br/>
       {{ vm.model.contact_method }}

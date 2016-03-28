@@ -49,8 +49,9 @@
       fields.address = cleanupGoogleAddress(fields.address);
       fields.plead_guilty = (fields.plead_guilty) ? "YES" : "NO";
       fields.acknowledgement = (fields.acknowledgement) ? "YES" : "NO";
-      fields.birthday = formatDateForCourtlink(vm.model.birthday);
-
+      //fields.birthday = formatDateForCourtlink(vm.model.birthday);
+      fields.birthday = vm.model.birthday;
+      
       $http.post("pleas", fields)
         .then(function(){
           $state.go('form.finish');
@@ -72,7 +73,7 @@
     function formatDateYMD(date){
       // convert the date to YMD
       var d = new Date(date.year, date.month, date.day);
-      return d.getFullYear() + "-" + (d.getMonth()+1) + d.getDate();
+      return d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
     }
 
     function cleanupGoogleAddress(address){
@@ -243,16 +244,26 @@
           required: true,
           past: true
         },
-
         validators: {
           past: {
             expression: function($viewValue, $modelValue, scope){
-              //var value = $modelValue || $viewValue;
-              // just check if the year is less than the current year
-              //var bd = scope.getYMD();
-              return true;
+              var value = $modelValue || $viewValue;
+              if (!_.isUndefined(value) && value.length > 0){
+                var ymd = value.split("/");
+                if (ymd.length == 3){
+                  var d = new Date();
+                  $log.log(ymd);
+                  ymd = formatDateYMD({ day: ymd[0], month: ymd[1]-1, year: ymd[2] });
+                  var today = formatDateYMD({ day: d.getDate() , month: d.getMonth(), year: d.getFullYear() });
+                  $log.log(ymd);
+                  $log.log(today);
+                  if (today > ymd)
+                    return true;
+                }
+              }
+              return false;
             },
-            message: '"Birthday must be a past date"'
+            message: '"Date of birth must be a past date"'
           }
         }
       },
@@ -296,12 +307,35 @@
           placeholder: 'Enter the date of your hearing',
           required: true,
           'bs-datepicker': 'bs-datepicker',
-          form_field_note:'This date is located on your summons document in the section "Where will the case be heard?"'
+          form_field_note:'This date is located on your summons document in the section "Where will the case be heard?"',
+          future: true,
           //'data-template-url':'js/partials/field-hearing-date-note.html',
         },
         ngModelAttrs: {
           'bs-datepicker': {attribute: 'bs-datepicker'},
           'form-field-note': {attribute: 'form-field-note'}
+        },
+        validators: {
+          future: {
+            expression: function($viewValue, $modelValue, scope){
+              var value = $modelValue || $viewValue;
+              if (!_.isUndefined(value) && value.length > 0){
+                var ymd = value.split("/");
+                if (ymd.length == 3){
+                  var d = new Date();
+                  $log.log(ymd);
+                  ymd = formatDateYMD({ day: ymd[0], month: ymd[1]-1, year: ymd[2] });
+                  var today = formatDateYMD({ day: d.getDate() , month: d.getMonth(), year: d.getFullYear() });
+                  $log.log(ymd);
+                  $log.log(today);
+                  if (today < ymd)
+                    return true;
+                }
+              }
+              return false;
+            },
+            message: '"Date of your hearing must be a future date"'
+          }
         }
       },
       {
@@ -312,13 +346,40 @@
           label: 'Date of your offence',
           placeholder: 'Enter the date your offence was committed',
           required: true,
-          'bs-datepicker': 'bs-datepicker'
+          'bs-datepicker': 'bs-datepicker',
+          past: true
         },
         ngModelAttrs: {
           'bs-datepicker': {
             attribute: 'bs-datepicker'
           }
         },
+        validators: {
+          past: {
+            expression: function($viewValue, $modelValue, scope){
+              var value = $modelValue || $viewValue;
+              $log.log("Offence date");
+              $log.log($modelValue);
+              $log.log($viewValue);
+              $log.log(scope);
+              if (!_.isUndefined(value) && value.length > 0){
+                var ymd = value.split("/");
+                if (ymd.length == 3){
+                  var d = new Date();
+                  $log.log(ymd);
+                  ymd = formatDateYMD({ day: ymd[0], month: ymd[1]-1, year: ymd[2] });
+                  var today = formatDateYMD({ day: d.getDate() , month: d.getMonth(), year: d.getFullYear() });
+                  $log.log(ymd);
+                  $log.log(today);
+                  if (today > ymd)
+                    return true;
+                }
+              }
+              return false;
+            },
+            message: '"Date of your offence must be a past date"'
+          }
+        }
       },
       {
         name: 'offence_details',

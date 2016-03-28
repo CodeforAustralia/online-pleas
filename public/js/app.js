@@ -12,7 +12,7 @@
     })
     .config(function($datepickerProvider) {
       angular.extend($datepickerProvider.defaults, {
-        modelDateFormat: 'dd MMM yyyy',
+        modelDateFormat: 'dd/MM/yyyy',
         dateFormat: 'dd/MM/yyyy',
         dateType: 'string',
         startWeek: 1,
@@ -195,10 +195,8 @@
       // custom formly validation messages
       formlyValidationMessages.addTemplateOptionValueMessage('maxlength', 'maxlength', '', 'is the maximum length', 'Too long');
       formlyValidationMessages.addTemplateOptionValueMessage('minlength', 'minlength', '', 'is the minimum length', 'Too short');
-      formlyValidationMessages.addTemplateOptionValueMessage('past', 'past', '', 'fucked', 'm8');
       formlyValidationMessages.messages.required = 'to.label + " is required"';
       formlyValidationMessages.messages.email = '$viewValue + " should be a valid email address"';
-      formlyValidationMessages.messages.past = '$viewValue + " should be a valid email address"';
       //formlyValidationMessages.addStringMessage('maxlength', '');
 
       $log.log(formlyValidationMessages);
