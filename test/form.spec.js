@@ -21,7 +21,9 @@ var OnlinePleasHome = function() {
   };*/
 
   this.getTitle = function() {
-    return title.getText();
+    return title.getText().then(function(text){
+      return text.toLowerCase();
+    });
   };
 
 
@@ -48,9 +50,10 @@ var OnlinePleasForm = function(){
       'given_name': element(by.name('given_name')),
       'family_name': element(by.name('family_name')),
       'address': element(by.name('address')),
-      'birthday_day': element(by.name('birthday[\'day\']')),
+      'birthday': element(by.name('birthday')),
+      /*'birthday_day': element(by.name('birthday[\'day\']')),
       'birthday_month': element(by.name('birthday[\'month\']')),
-      'birthday_year': element(by.name('birthday[\'year\']')),
+      'birthday_year': element(by.name('birthday[\'year\']')),*/
       'contact_method': element(by.name('contact_method')),
       'contact': element(by.name('contact')),
     },
@@ -75,15 +78,13 @@ var OnlinePleasForm = function(){
       'given_name': 'Joe',
       'family_name': 'Bloggs',
       'address': '123 Fake St, Vic, 3000',
-      'birthday_day': 6,
-      'birthday_month': 8,
-      'birthday_year': 1990,
+      'birthday': "18/6/1988",
       'contact_method': 'phone',
       'contact': "0040123456",
     },
     'offence': {
-      'hearing_date': '19 ' + monthnames[d.getMonth()].slice(0,3) + " " + d.getFullYear(),
-      'offence_date': '01 ' + monthnames[d.getMonth()].slice(0,3) + " " + d.getFullYear(),
+      'hearing_date': formatDateDDMMYY({day: 19, month: d.getMonth()+2, year: d.getFullYear()}),
+      'offence_date': formatDateDDMMYY({day: 1, month: d.getMonth()+1, year: d.getFullYear()}),
       'offence_details': 'I stole a coffee',
       'message': 'I was thirsty'
     },
@@ -96,6 +97,17 @@ var OnlinePleasForm = function(){
   var dropdowns = [
     'contact_method'
   ];
+
+
+  function formatDateDDMMYY(date){
+    // convert the date to YMD
+    var d = new Date(date.year, date.month-1, date.day);
+    var mon = d.getMonth()+1;
+    mon = String(mon).length === 2 ? mon : "0"+String(mon);
+    var day = d.getDate();
+    day = String(day).length === 2 ? day : "0"+String(day);
+    return day + "/" + mon + "/" + d.getFullYear();
+  }
 
   function selectDropdownbyNum(element, index) {
     //element.findElements(by.tagName('option'))
@@ -122,11 +134,15 @@ var OnlinePleasForm = function(){
   };
 
   this.getAlertHeadingText = function(){
-    return element(by.css("#confirmation .alert h2")).getText();
+    return element(by.css(".alert .alert-title")).getText().then(function(text){
+      return text.toLowerCase();
+    });
   };
 
   this.getAlertMessageText = function(){
-    return element(by.css("#confirmation .alert p")).getText();
+    return element(by.css(".alert .alert-message")).getText().then(function(text){
+      return text.toLowerCase();
+    });
   };
 };
 
@@ -140,7 +156,7 @@ describe('Online pleas', function() {
     it('should have a title and begin button', function(){
       //var txt = element(by.css("main .header-title"));
       var op = new OnlinePleasHome();
-      expect(op.getTitle()).toEqual("submit your plea online".toUpperCase());
+      expect(op.getTitle()).toEqual("submit your plea online");
       expect(op.getButton('Begin').isDisplayed()).toBe(true);
     });
 
@@ -167,7 +183,7 @@ describe('Online pleas', function() {
 
   });
 
-  describe('Form', function() {
+  describe('Form', function(){
     //beforeEach
     beforeEach(function(){
       browser.driver.get("http://localhost:3000/");
@@ -193,8 +209,67 @@ describe('Online pleas', function() {
       // submit the form
       opf.clickButton('Submit');
 
+      expect(opf.getAlertHeadingText()).toBe("submitted");
+      expect(opf.getAlertMessageText()).toBe("your guilty plea has been submitted.");
+    });
+
+    it('should not let me submit the form if there are errors', function(){
+      var opf = new OnlinePleasForm();
+
+      opf.clickButton('Begin');
+
+      // should see the your details form
+      // fill in the form
+      opf.fillForm('details');
+      opf.clickButton('Next');
+
+      // try and proceed without filling in the second screen
+      opf.clickButton('Next');
+      //browser.pause();
+      expect(opf.getAlertHeadingText()).toBe("form errors");
+      expect(opf.getAlertMessageText()).toContain("to continue, please fix these errors...");
+    });
+
+    it('should let me cancel and exit the form', function(){
+      /*var opf = new OnlinePleasForm();
+
+      opf.clickButton('Begin');
+
+      // should see the your details form
+      // fill in the form
+      opf.fillForm('details');
+      opf.clickButton('Next');
+      //browser.pause();
+      opf.fillForm('offence');
+      opf.clickButton('Next');
+      //browser.pause();
+      // go to the next page
+      //browser.pause();
+      opf.fillForm('declaration');
+      opf.clickButton('Next');
+      // submit the form
+      opf.clickButton('Submit');
+
       expect(opf.getAlertHeadingText()).toBe("Submitted");
-      expect(opf.getAlertMessageText()).toBe("Your guilty plea has been submitted.");
+      expect(opf.getAlertMessageText()).toBe("Your guilty plea has been submitted.");*/
+    });
+  });
+
+  describe('Errors', function(){
+    beforeEach(function(){
+      browser.driver.get("http://localhost:3000/");
+    });
+
+    it('should make sure the date of birth is a past date', function(){
+    });
+
+    it('should make sure the offence date is in the past', function(){
+    });
+
+    it('should make sure the hearing date is in the future', function(){
+    });
+
+    it('should make both declarations are selected', function(){
     });
   });
 
