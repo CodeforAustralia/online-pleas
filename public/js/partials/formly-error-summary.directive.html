@@ -1,0 +1,11 @@
+<div class="formly-error-summary">
+  To continue, please fix these errors...<br/>
+  <div ng-repeat="field in vm.fields" ng-if="field.formControl.$invalid">
+    <i class="fa fa-{{field.formControl.$invalid ? 'times' : 'check'}}"></i>&nbsp;
+    <span ng-if="field.formControl.$invalid">{{ vm.getErrorAsList(field) }}
+    </span>
+    <!--<span ng-if="field.formControl.$valid">
+      valid!
+    </span>-->
+  </div>
+</div>

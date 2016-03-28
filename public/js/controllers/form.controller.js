@@ -10,6 +10,8 @@
 
     var vm = this;
 
+    //$log.log($formlyValidationMessages);
+
     vm.steps = [
       {'id':0, 'label': 'Your details'},
       {'id':1, 'label': 'Your offence'},
@@ -78,6 +80,39 @@
       return address.formatted_address;
     }
 
+    function cleanupSplitDate(key, model){
+      $log.log("Clean up field " + key + " with data ");
+      $log.log(model);
+      if (
+        !_.isUndefined(model) &&
+        !_.isUndefined(model.day) &&
+        !_.isUndefined(model.month) &&
+        !_.isUndefined(model.year)
+      ){
+        var ymd = { 'day': model.day || '', 'month': model.month || '', 'year': model.year || '' };
+        return formatDateYMD(ymd);
+      }
+      return false;
+    }
+
+    /*vm.checkBusinessRules = {};
+    vm.checkBusinessRules.your_details = function(){
+      // make sure the dob is a past date
+      var today = new Date();
+      if (vm.model.your_details.birthday >= today)
+        vm.errors.push()
+    };*/
+
+    vm.options = {data:{}};
+    vm.options.data.getValidationMessage = getValidationMessage;
+
+    function getValidationMessage(key) {
+      var message = $scope.options.validation.messages[key];
+      if (message) {
+        return message($scope.fc.$viewValue, $scope.fc.$modelValue, $scope);
+      }
+    }
+
     vm.prev = function(prev_step){
       vm.errors = [];
       vm.current_step_id--;
@@ -86,6 +121,7 @@
 
     vm.next = function(current_step, next_step){
       vm.checkRequiredFields(current_step);
+      //vm.checkBusinessRules(current_step);
       $log.log("Moving to: " + next_step);
       // check the required fields
       $log.log(vm.fields);
@@ -103,10 +139,30 @@
 
       $log.log(fields);
 
+      if (step === 'your_details'){
+        $log.log("CHECK BD");
+        var d = cleanupSplitDate('birthday', vm.model.birthday);
+        if (d){
+
+        }
+        else {
+          //fields.birthday.$errors;
+          $log.log("ERROR FOUND");
+          $log.log(vm.form);
+          $log.log(vm.model);
+          $log.log(vm.fields);
+          var bd = _.find(vm.fields.your_details, {'key':'birthday'});
+          $log.log(bd);
+          //bd.$error.past = true;
+        }
+      }
+
+      $log.log("CHECK ALL FIELDS");
       if (step !== 'declaration'){
         fields.forEach(function(field){
-          if (field.formControl.$invalid)
+          if (field.formControl.$invalid){
             vm.errors.push({'message': field.templateOptions.label + " is required"});
+          }
         });
       }
       else {
@@ -149,8 +205,8 @@
         templateOptions: {
           label: 'Given Name(s)',
           //placeholder: 'Enter your given name(s)',
-          required: true,
-        },
+          required: true
+        }
       },
       {
         name: 'family_name',
@@ -180,49 +236,25 @@
         name: 'birthday',
         key: 'birthday',
         //type: 'customInput',
-        type: 'customDob',
+        type: 'customInput',
         templateOptions: {
           label: 'Date of Birth',
-          placeholder: 'Enter your date of birth',
+          placeholder: 'dd/mm/yyyy',
           required: true,
-          //'bs-datepicker': 'bs-datepicker'
+          past: true
         },
-        ngModelAttrs: {
-          'bs-datepicker': {
-            attribute: 'bs-datepicker'
-          }
-        },
-        /*validators: {
-          pastDate: {
+
+        validators: {
+          past: {
             expression: function($viewValue, $modelValue, scope){
-              var value = $modelValue || $viewValue;
+              //var value = $modelValue || $viewValue;
               // just check if the year is less than the current year
-              $log.log("VALUE: ");
-              $log.log($viewValue);
-              $log.log(vm.model.birthday);
-              return false;
-              /*if (!_.isUndefined(value) && !_.isUndefined(value.year) && value.year.length == 4){
-                var cyear = Date.getFullYear();
-                if (value.year < cyear){
-                  return true;
-                }
-                return false;
-              }*/
-              /*if (!_.isUndefined(value)){
-                $log.log(value);
-                value = formatDateYMD(value);
-                var today = formatDateYMD({day: Date.getDate(), month: Date.getMonth(), year: Date.getFullYear() });
-                $log.log(today);
-                if (value < today){
-                  return true;
-                }
-                return false;
-              }* /
+              //var bd = scope.getYMD();
               return true;
             },
-            message: '$viewValue must be a previous date'
+            message: '"Birthday must be a past date"'
           }
-        }*/
+        }
       },
       {
         name: 'contact_method',

@@ -1,14 +1,14 @@
 <div class="row">
-  <pre>
-    {{ vm.model | json }}
-  </pre>
+  <!--<pre>
+    {{ vm.fields | json }}
+  </pre>-->
 </div>
 <div class="row">
   <form-steps class="col-xs-12" steps="vm.steps" current="vm.current_step_id"></form-steps>
 </div>
+<formly-error-summary form="vm.form" fields="vm.fields.your_details"></formly-error-summary>
 <div class="col-xs-12 alert alert-danger" ng-if="vm.form.your_details.$invalid && vm.form.your_details.$submitted">
   <h3 class="alert-title">Form errors</h3>
-  <p ng-repeat="error in vm.errors">{{ error.message }}</p>
 </div>
 <form class="online-plea-form" name="vm.form.your_details" novalidate>
   <formly-form model="vm.model" fields="vm.fields.your_details">

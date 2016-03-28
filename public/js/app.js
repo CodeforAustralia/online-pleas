@@ -68,48 +68,141 @@
       formlyConfig.setType([{
         extends: 'input',
         name: 'customInput',
-        wrapper: ['customLabel', 'customHasError']
+        wrapper: ['customLabel', 'customHasError'],
+        controller: ['$scope', function($scope) {
+          $scope.options.data.getValidationMessage = getValidationMessage;
+
+          function getValidationMessage(key) {
+            var message = $scope.options.validation.messages[key];
+            if (message) {
+              return message($scope.fc.$viewValue, $scope.fc.$modelValue, $scope);
+            }
+          }
+        }]
       },
       {
         extends: 'select',
         name: 'customSelect',
-        wrapper: ['customLabel', 'customHasError']
+        wrapper: ['customLabel', 'customHasError'],
+        controller: ['$scope', function($scope) {
+          $scope.options.data.getValidationMessage = getValidationMessage;
+
+          function getValidationMessage(key) {
+            var message = $scope.options.validation.messages[key];
+            if (message) {
+              return message($scope.fc.$viewValue, $scope.fc.$modelValue, $scope);
+            }
+          }
+        }]
       },
       {
         extends: 'checkbox',
         name: 'customCheckbox',
         wrapper: ['customHasError'],
+        controller: ['$scope', function($scope) {
+          $scope.options.data.getValidationMessage = getValidationMessage;
+
+          function getValidationMessage(key) {
+            var message = $scope.options.validation.messages[key];
+            if (message) {
+              return message($scope.fc.$viewValue, $scope.fc.$modelValue, $scope);
+            }
+          }
+        }]
       },
       {
         extends: 'multiCheckbox',
         name: 'customMultiCheckbox',
         wrapper: ['customLabel','customHasError'],
+        controller: ['$scope', function($scope) {
+          $scope.options.data.getValidationMessage = getValidationMessage;
+
+          function getValidationMessage(key) {
+            var message = $scope.options.validation.messages[key];
+            if (message) {
+              return message($scope.fc.$viewValue, $scope.fc.$modelValue, $scope);
+            }
+          }
+        }]
       },
       {
         extends: 'radio',
         name: 'customRadio',
-        wrapper: ['customLabel', 'customHasError']
+        wrapper: ['customLabel', 'customHasError'],
+        controller: ['$scope', function($scope) {
+          $scope.options.data.getValidationMessage = getValidationMessage;
+
+          function getValidationMessage(key) {
+            var message = $scope.options.validation.messages[key];
+            if (message) {
+              return message($scope.fc.$viewValue, $scope.fc.$modelValue, $scope);
+            }
+          }
+        }]
       },
       {
         extends: 'textarea',
         name: 'customTextarea',
-        wrapper: ['customLabel', 'customHasError']
+        wrapper: ['customLabel', 'customHasError'],
+        controller: ['$scope', function($scope) {
+          $scope.options.data.getValidationMessage = getValidationMessage;
+
+          function getValidationMessage(key) {
+            var message = $scope.options.validation.messages[key];
+            if (message) {
+              return message($scope.fc.$viewValue, $scope.fc.$modelValue, $scope);
+            }
+          }
+        }]
       },
       {
         extends: 'textarea',
         name: 'customTextareaWithCounter',
-        wrapper: ['customLabel', 'customHasError']
+        wrapper: ['customLabel', 'customHasError'],
+        controller: ['$scope', function($scope) {
+          $scope.options.data.getValidationMessage = getValidationMessage;
+
+          function getValidationMessage(key) {
+            var message = $scope.options.validation.messages[key];
+            if (message) {
+              return message($scope.fc.$viewValue, $scope.fc.$modelValue, $scope);
+            }
+          }
+        }]
       },
       {
         extends: 'input',
-        name: 'customDob',
-        templateUrl: "js/partials/forms/custom-dob.html",
-        wrapper: ['customLabel', 'customHasError']
+        name: 'customSplitDate',
+        templateUrl: "js/partials/forms/custom-split-date.html",
+        wrapper: ['customLabel', 'customHasError'],
+        controller: ['$scope', function($scope, $log) {
+
+
+          $scope.options.data.getValidationMessage = getValidationMessage;
+
+          function getValidationMessage(key) {
+            $log.log("CUSTOMDOB");
+            $log.log(key);
+            $log.log($scope.options.validation.messages[key]);
+            var message = $scope.options.validation.messages[key];
+            if (message) {
+              return message($scope.fc.$viewValue, $scope.fc.$modelValue, $scope);
+            }
+          }
+        }]
       }]);
 
       // custom formly validation messages
-      //formlyValidationMessages.addStringMessage('required', 'This field is required');
+      formlyValidationMessages.addTemplateOptionValueMessage('maxlength', 'maxlength', '', 'is the maximum length', 'Too long');
+      formlyValidationMessages.addTemplateOptionValueMessage('minlength', 'minlength', '', 'is the minimum length', 'Too short');
+      formlyValidationMessages.addTemplateOptionValueMessage('past', 'past', '', 'fucked', 'm8');
+      formlyValidationMessages.messages.required = 'to.label + " is required"';
+      formlyValidationMessages.messages.email = '$viewValue + " should be a valid email address"';
+      formlyValidationMessages.messages.past = '$viewValue + " should be a valid email address"';
       //formlyValidationMessages.addStringMessage('maxlength', '');
+
+      $log.log(formlyValidationMessages);
+      $log.log(formlyValidationMessages.messages);
     });
 
   function stateConfig($stateProvider){
