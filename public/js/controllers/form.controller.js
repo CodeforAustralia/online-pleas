@@ -6,7 +6,7 @@
     .controller('FormController', FormController);
 
   /*@ngInject*/
-  function FormController($scope, $log, $rootScope, $state, $alert, $modal, $http, $interval){
+  function FormController($scope, $log, $rootScope, $state, $alert, $modal, $http, $interval, $sce){
 
     var vm = this;
 
@@ -51,7 +51,7 @@
       fields.acknowledgement = (fields.acknowledgement) ? "YES" : "NO";
       //fields.birthday = formatDateForCourtlink(vm.model.birthday);
       fields.birthday = vm.model.birthday;
-      
+
       $http.post("pleas", fields)
         .then(function(){
           $state.go('form.finish');
@@ -403,13 +403,20 @@
           label: 'Message to the Magistrate',
           placeholder: 'Enter a message to be sent to the magistrate',
           maxlength: 600,
-          form_field_note: 'This might include explaining why you offended, what you\'ve done to repair the harm, or things you\'d like the magistrate to consider when deciding your sentence.'
+          prepend: "This might include explaining why you offended, your personal or financial circumstances, and things you would like the magistrate to consider when deciding your sentence ",
+          modal_url: "js/partials/information-for-the-magistrate.html",
+          form_field_note: 'show more'
         },
         ngModelAttrs: {
           form_field_note: {attribute: 'form-field-note'}
         }
       },
     ];
+
+    $scope.loadModal = function(modal){
+      var path = "js/partials/";
+      $log.log("showing " + modal);
+    };
 
     vm.fields.declaration = [
       {

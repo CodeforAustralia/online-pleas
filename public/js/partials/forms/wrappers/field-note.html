@@ -10,7 +10,8 @@
   <div class="form-field-note">
     <p>
       <span class="fa fa-info-circle"></span>
-      {{to.form_field_note}}
+      <!--<span ng-bind-html="to.form_field_note"></span>-->
+      {{options.templateOptions.prepend}} <a href="" data-template-url="{{options.templateOptions.modal_url}}" bs-modal="modal">{{options.templateOptions.form_field_note}}</a>      
     </p>
   </div>
 

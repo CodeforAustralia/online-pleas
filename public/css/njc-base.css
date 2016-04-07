@@ -46,9 +46,32 @@ main,
   margin-right: 1em;
   display: inline-block;
 }
+.danger {
+  background: #DD6F47;
+}
+.warning {
+  background: #FCA65F;
+}
+.info {
+  background: #D6D6D6;
+}
+.success {
+  background: #6AB0AA;
+}
+.active {
+  background: #37465D;
+}
 body {
   color: #333;
   background: #F8F8F8;
+}
+.global-alert {
+  background: #37465D;
+  color: #F8F8F8;
+  padding: 0.5em 0;
+}
+.global-alert p {
+  margin-bottom: 0;
 }
 .global-header .header-logo {
   font-size: 24pt;
