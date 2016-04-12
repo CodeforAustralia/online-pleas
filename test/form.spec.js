@@ -269,6 +269,9 @@ describe('Online pleas', function() {
     it('should make sure the hearing date is in the future', function(){
     });
 
+    it('should make sure the future date can be a date within the current month', function(){
+    });
+
     it('should make both declarations are selected', function(){
     });
   });

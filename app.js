@@ -22,13 +22,13 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(compression());
-app.use(express.static(path.join(__dirname, 'public')));
 
 // use this because we are behind a proxy
 app.set('trust proxy', true);
 
 // set the static asset path
+app.use(compression()); //use compression
+app.use(express.static(path.join(__dirname, 'public')));
 app.use('/online-pleas/static', express.static('public'));
 
 app.use('/pleas', pleas);
