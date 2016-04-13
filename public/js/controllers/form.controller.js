@@ -70,10 +70,24 @@
       return d.getDate() + " " + monthnames[d.getMonth()].slice(0, 3) + " " + d.getFullYear();
     }
 
-    function formatDateYMD(date){
-      // convert the date to YMD
+    function formatDateUnix(date){
+      // convert the date to UNIX
+      // expect 0 based month
+      date.year = (date.year.length === 2) ? Number("20"+date.year) : date.year;
       var d = new Date(date.year, date.month, date.day);
-      return d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
+      return d.getTime()/1000;
+    }
+
+    function formatDateDDMMYYYY(date, delim){
+      var delimiter = (delim) ? delim : "/";
+      // convert the date to YMD
+      // expect 0 based month
+      var d = new Date(date.year, date.month, date.day);
+      var mon = d.getMonth()+1;
+      mon = String(mon).length === 2 ? mon : "0"+String(mon);
+      var day = d.getDate();
+      day = String(day).length === 2 ? day : "0"+String(day);
+      return day + delimiter + mon + delimiter + d.getFullYear();
     }
 
     function cleanupGoogleAddress(address){
@@ -244,7 +258,7 @@
           required: true,
           past: true
         },
-        validators: {
+        validators: {        
           past: {
             expression: function($viewValue, $modelValue, scope){
               var value = $modelValue || $viewValue;
@@ -253,8 +267,8 @@
                 if (ymd.length == 3){
                   var d = new Date();
                   $log.log(ymd);
-                  ymd = formatDateYMD({ day: ymd[0], month: ymd[1]-1, year: ymd[2] });
-                  var today = formatDateYMD({ day: d.getDate() , month: d.getMonth(), year: d.getFullYear() });
+                  ymd = formatDateUnix({ day: ymd[0], month: ymd[1]-1, year: ymd[2] });
+                  var today = formatDateUnix({ day: d.getDate() , month: d.getMonth(), year: d.getFullYear() });
                   $log.log(ymd);
                   $log.log(today);
                   if (today > ymd)
@@ -324,8 +338,8 @@
                 if (ymd.length == 3){
                   var d = new Date();
                   $log.log(ymd);
-                  ymd = formatDateYMD({ day: ymd[0], month: ymd[1]-1, year: ymd[2] });
-                  var today = formatDateYMD({ day: d.getDate() , month: d.getMonth(), year: d.getFullYear() });
+                  ymd = formatDateUnix({ day: ymd[0], month: ymd[1]-1, year: ymd[2] });
+                  var today = formatDateUnix({ day: d.getDate() , month: d.getMonth(), year: d.getFullYear() });
                   $log.log(ymd);
                   $log.log(today);
                   if (today < ymd)
@@ -367,8 +381,8 @@
                 if (ymd.length == 3){
                   var d = new Date();
                   $log.log(ymd);
-                  ymd = formatDateYMD({ day: ymd[0], month: ymd[1]-1, year: ymd[2] });
-                  var today = formatDateYMD({ day: d.getDate() , month: d.getMonth(), year: d.getFullYear() });
+                  ymd = formatDateUnix({ day: ymd[0], month: ymd[1]-1, year: ymd[2] });
+                  var today = formatDateUnix({ day: d.getDate() , month: d.getMonth(), year: d.getFullYear() });
                   $log.log(ymd);
                   $log.log(today);
                   if (today > ymd)
@@ -424,6 +438,7 @@
         key: 'acknowledgement',
         type: 'customCheckbox',
         templateOptions: {
+          no_label: true,
           label: 'I acknowledge I may plead guilty or not guilty. I acknowledge no police officer or other person told me to plead guilty',
           required: true
         }
@@ -433,6 +448,7 @@
         key: 'plead_guilty',
         type: 'customCheckbox',
         templateOptions: {
+          no_label: true,
           label: 'I plead guilty to the offence(s) listed in this form. This plea is entered voluntarily of my own free will',
           required: true
         }

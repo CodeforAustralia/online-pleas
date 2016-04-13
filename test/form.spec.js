@@ -119,6 +119,10 @@ var OnlinePleasForm = function(){
     });
   }
 
+  this.fillField = function(form, field, value){
+    fields[form][field].sendKeys(value);
+  };
+
   this.fillForm = function(form){
     var v = values[form];
     _.each(fields[form], function(field, key){
@@ -146,6 +150,23 @@ var OnlinePleasForm = function(){
   };
 };
 
+function fillYourDetails(opf){
+  // fill in the form
+  opf.fillForm('details');
+  opf.clickButton('Next');
+}
+
+function fillYourOffence(opf){
+  // fill in the form
+  opf.fillForm('offence');
+  opf.clickButton('Next');
+}
+
+function fillDeclarations(opf){
+  opf.fillForm('declaration');
+  opf.clickButton('Next');
+}
+
 describe('Online pleas', function() {
   describe('Home', function() {
     //beforeEach
@@ -164,8 +185,8 @@ describe('Online pleas', function() {
       var op = new OnlinePleasHome();
       var offences = [
         'Transport offences (unpaid infringements)',
-        'Traffic-related offences',
-        'Theft - shop stealing; theft of bicycle; theft from motor car',
+        'Road safety offences',
+        'Theft: shop stealing, theft of bicycle, or theft from car (max $600)',
         'Drunk in a public place',
       ];
       op.getSomeOffences().click();
@@ -195,17 +216,13 @@ describe('Online pleas', function() {
       opf.clickButton('Begin');
 
       // should see the your details form
-      // fill in the form
-      opf.fillForm('details');
-      opf.clickButton('Next');
-      //browser.pause();
-      opf.fillForm('offence');
-      opf.clickButton('Next');
-      //browser.pause();
-      // go to the next page
-      //browser.pause();
-      opf.fillForm('declaration');
-      opf.clickButton('Next');
+      fillYourDetails(opf);
+
+      // should see the your offence form
+      fillYourOffence(opf);
+
+      // should see the your declarations form
+      fillDeclarations(opf);
       // submit the form
       opf.clickButton('Submit');
 
@@ -219,9 +236,7 @@ describe('Online pleas', function() {
       opf.clickButton('Begin');
 
       // should see the your details form
-      // fill in the form
-      opf.fillForm('details');
-      opf.clickButton('Next');
+      fillYourDetails(opf);
 
       // try and proceed without filling in the second screen
       opf.clickButton('Next');
@@ -255,24 +270,119 @@ describe('Online pleas', function() {
     });
   });
 
-  describe('Errors', function(){
+  describe('Your details', function(){
+    var opf = new OnlinePleasForm();
+
     beforeEach(function(){
       browser.driver.get("http://localhost:3000/");
+      opf.clickButton('Begin');
     });
 
     it('should make sure the date of birth is a past date', function(){
+      var y = new Date().getFullYear()+1;
+      // selecvt a date next year
+      opf.fillField('details', 'birthday', '18/06/' + y);
+      opf.clickButton('Next');
+      //browser.pause();
+      expect(opf.getAlertHeadingText()).toBe("form errors");
+      expect(opf.getAlertMessageText()).toContain("to continue, please fix these errors...");
+      expect(opf.getAlertMessageText()).toContain("date of birth must be a past date");
+    });
+  });
+
+  describe('Your offence', function(){
+    var opf = new OnlinePleasForm();
+
+    beforeEach(function(){
+      browser.driver.get("http://localhost:3000/");
+      var opf = new OnlinePleasForm();
+      opf.clickButton('Begin');
+      fillYourDetails(opf);
+    });
+
+    it('should make sure the offence and hearing date dont fail with a short month / year', function(){
+      var y = new Date().getFullYear()+1;
+      // selecvt a date next year
+      opf.fillField('offence', 'offence_date', '18/6/' + String(y-2).replace("20", ""));
+      opf.fillField('offence', 'hearing_date', '19/6/' + y);
+      opf.clickButton('Next');
+      //browser.pause();
+      expect(opf.getAlertHeadingText()).toBe("form errors");
+      expect(opf.getAlertMessageText()).toContain("to continue, please fix these errors...");
+      expect(opf.getAlertMessageText()).not.toContain("date of your offence must be a past date");
+      expect(opf.getAlertMessageText()).not.toContain("date of your hearing must be a future date");
     });
 
     it('should make sure the offence date is in the past', function(){
+      var y = new Date().getFullYear()+1;
+      // selecvt a date next year
+      opf.fillField('offence', 'offence_date', '18/06/' + y);
+      opf.clickButton('Next');
+      //browser.pause();
+      expect(opf.getAlertHeadingText()).toBe("form errors");
+      expect(opf.getAlertMessageText()).toContain("to continue, please fix these errors...");
+      expect(opf.getAlertMessageText()).toContain("date of your offence must be a past date");
     });
 
     it('should make sure the hearing date is in the future', function(){
+      var y = new Date().getFullYear()-1;
+      // selecvt a date next year
+      opf.fillField('offence', 'hearing_date', '18/06/' + y);
+      opf.clickButton('Next');
+      //browser.pause();
+      expect(opf.getAlertHeadingText()).toBe("form errors");
+      expect(opf.getAlertMessageText()).toContain("to continue, please fix these errors...");
+      expect(opf.getAlertMessageText()).toContain("date of your hearing must be a future date");
     });
 
-    it('should make sure the future date can be a date within the current month', function(){
+    it('should make sure the hearing date can be close to the current day', function(){
+      var y = new Date().getFullYear();
+      var m = new Date().getMonth();
+      var d = new Date().getDate()+1;
+      var date = new Date(y, m, d);
+      // selecvt a date next year
+      opf.fillField('offence', 'hearing_date', date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear());
+      opf.clickButton('Next');
+      //browser.pause();
+      expect(opf.getAlertHeadingText()).toBe("form errors");
+      expect(opf.getAlertMessageText()).toContain("to continue, please fix these errors...");
+      expect(opf.getAlertMessageText()).not.toContain("date of your hearing must be a future date");
     });
 
-    it('should make both declarations are selected', function(){
+    it('should make sure the offence date can be a date can be close to the current day', function(){
+      var y = new Date().getFullYear();
+      var m = new Date().getMonth();
+      var d = new Date().getDate()-1;
+      var date = new Date(y, m, d);
+      // selecvt a date next year
+      opf.fillField('offence', 'offence_date', date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear());
+      opf.clickButton('Next');
+      //browser.pause();
+      expect(opf.getAlertHeadingText()).toBe("form errors");
+      expect(opf.getAlertMessageText()).toContain("to continue, please fix these errors...");
+      expect(opf.getAlertMessageText()).not.toContain("date of your offence must be a past date");
+    });
+  });
+
+
+  describe('Your declaration', function(){
+    var opf = new OnlinePleasForm();
+
+    beforeEach(function(){
+      browser.driver.get("http://localhost:3000/");
+      var opf = new OnlinePleasForm();
+      opf.clickButton('Begin');
+      fillYourDetails(opf);
+      fillYourOffence(opf);
+    });
+
+    it('should make sure both declarations are selected', function(){
+      opf.clickButton('Next');
+
+      expect(opf.getAlertHeadingText()).toBe("form errors");
+      expect(opf.getAlertMessageText()).toContain("to continue, please fix these errors...");
+      expect(opf.getAlertMessageText()).toContain("I acknowledge I may plead guilty or not guilty. I acknowledge no police officer or other person told me to plead guilty is required".toLowerCase());
+      expect(opf.getAlertMessageText()).toContain("I plead guilty to the offence(s) listed in this form. This plea is entered voluntarily of my own free will is required".toLowerCase());
     });
   });
 
