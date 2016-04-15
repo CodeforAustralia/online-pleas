@@ -1,0 +1,26 @@
+/******************************
+Responsive overrides
+*******************************/
+
+@screen-xs-max:767px;
+@screen-sm-min:768px;
+@screen-md-min:992px;
+@screen-lg-min:1200px;
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: @screen-sm-min) {
+  .njc-online-pleas {
+    .form-steps ul li {
+      display:inline-block;
+      margin-right:2em;
+      color:@col-secondary;
+    }
+  }
+}
+
+
+@media only screen and (max-device-width: @screen-sm-min){
+  .global-header {
+    text-align:center;
+  }
+}

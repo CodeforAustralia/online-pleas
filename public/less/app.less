@@ -4,6 +4,7 @@ Boostrap overrides
 
 @import "_colours";
 @import "_overrides";
+@import "_responsive";
 
 .njc-online-pleas {
   .no-padding {
@@ -62,10 +63,12 @@ App specific
       margin:0;
       padding:0;
       list-style-type:none;
-      li {
-        display:inline;margin-right:2em;
-        color:@col-secondary;
-      }
+    }
+
+    li {
+      display:block;
+      margin-right:2em;
+      color:@col-secondary;
     }
 
     .completed-step {
