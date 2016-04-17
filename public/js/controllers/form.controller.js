@@ -258,7 +258,7 @@
           required: true,
           past: true
         },
-        validators: {        
+        validators: {
           past: {
             expression: function($viewValue, $modelValue, scope){
               var value = $modelValue || $viewValue;

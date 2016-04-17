@@ -2,7 +2,7 @@
   <div class="">
     <strong class="control-label" ng-if="options.templateOptions.custom_label">
       {{options.templateOptions.custom_label}}
-      <span ng-if="options.templateOptions.required">*</span>
+      <span ng-if="!options.templateOptions.required">(optional)</span>
     </strong>
   </div>
 

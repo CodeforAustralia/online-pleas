@@ -98,6 +98,7 @@
       {
         extends: 'checkbox',
         name: 'customCheckbox',
+        templateUrl: 'js/partials/forms/wrappers/custom-field-checkbox.html',
         wrapper: ['customLabel', 'customHasError'],
         controller: ['$scope', function($scope) {
           $scope.options.data.getValidationMessage = getValidationMessage;
