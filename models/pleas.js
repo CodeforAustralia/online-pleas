@@ -19,7 +19,8 @@ var PleaSchema = mongoose.Schema({
   declarations: {
     plead_guilty: Boolean,
     acknowledgement: Boolean
-  }
+  },
+  created_at: {type: Date, default: new Date()}
 });
 
 module.exports = mongoose.model('Pleas', PleaSchema);

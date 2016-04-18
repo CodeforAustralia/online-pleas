@@ -1,10 +1,10 @@
-/******************************
-Boostrap overrides
-*******************************/
-
 @import "_colours";
 @import "_overrides";
 @import "_responsive";
+
+/******************************
+Boostrap overrides
+*******************************/
 
 .njc-online-pleas {
   .no-padding {
@@ -77,6 +77,16 @@ App specific
 
     .active-step {
       color:@dark-grey;
+    }
+  }
+
+  @max_ratings:7;
+  .ratings {
+    .radio-group .radio {
+      position:relative;
+      text-align: center;
+      display:inline-block;
+      width:100%/@max_ratings;
     }
   }
 

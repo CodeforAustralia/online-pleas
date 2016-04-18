@@ -1,0 +1,15 @@
+<div class="ratings">
+  <div ng-if="vm.submitted" class="alert alert-success">
+    <p>Thank you for your feedback!</p>
+  </div>
+  <form ng-if="!vm.submitted" class="seq-form" name="vm.form" novalidate ng-submit="vm.submit()">
+    <formly-form model="vm.model" fields="vm.fields">
+      <div class="no-padding">
+        <button type="submit" class="btn btn-primary" ng-disabled="!vm.model.rating">
+          Save
+          <span class="fa fa-save"></span>
+        </button>
+      </div>
+    </formly-form>
+  </form>
+</div>

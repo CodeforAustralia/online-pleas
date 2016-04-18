@@ -96,6 +96,22 @@
         }]
       },
       {
+        extends: 'radio',
+        name: 'customRatingRadio',
+        templateUrl: 'js/partials/forms/wrappers/custom-field-rating-radio.html',
+        wrapper: ['customLabel', 'customHasError'],
+        controller: ['$scope', function($scope) {
+          $scope.options.data.getValidationMessage = getValidationMessage;
+
+          function getValidationMessage(key) {
+            var message = $scope.options.validation.messages[key];
+            if (message) {
+              return message($scope.fc.$viewValue, $scope.fc.$modelValue, $scope);
+            }
+          }
+        }]
+      },
+      {
         extends: 'checkbox',
         name: 'customCheckbox',
         templateUrl: 'js/partials/forms/wrappers/custom-field-checkbox.html',

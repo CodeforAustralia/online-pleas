@@ -12,6 +12,7 @@ var chalkColours = require('./chalk-colours');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var pleas = require('./routes/pleas');
+var ratings = require('./routes/ratings');
 
 // db connection
 var db;
@@ -39,6 +40,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/online-pleas/static', express.static('public'));
 
 app.use('/pleas', pleas);
+app.use('/ratings', ratings);
 app.use('/', routes);
 
 // catch 404 and forward to error handler
