@@ -5,6 +5,8 @@ var jade = require('jade');
 var pdf = require('html-pdf');
 var mailgun = require('mailgun-js');
 var mailer = require('../mailer');
+var Pleas = require('../models/pleas');
+var mongoose = require('mongoose');
 
 function cleanupLabels(arr){
   var clean = {};
@@ -20,6 +22,35 @@ function cleanupLabels(arr){
 router.post('/', function(req, res, next) {
   // generate the html document
   var plea = req.body;
+  var x = {};
+
+  console.log(plea);
+
+  var p = new Pleas({
+    details: {
+      given_name: plea.given_name,
+      family_name: plea.family_name,
+      address: plea.address,
+      birthday: plea.birthday,
+      contact_method: plea.contact_method,
+      contact: plea.contact,
+    },
+    offence: {
+      hearing_date: plea.hearing_date,
+      offence_date: plea.offence_date,
+      offence_details: plea.offence_details,
+      message: plea.message,
+    },
+    declarations: {
+      plead_guilty: plea.plead_guilty,
+      acknowledgement: plea.acknowledgement
+    }
+  });
+
+  p.save(function(err){
+    if (err) console.log(err);
+    x = p;
+  });
 
   //var html = res.render('plea', plea);
   fs.readFile('./views/plea.jade', 'utf8', function(err, data){
@@ -64,10 +95,6 @@ router.post('/', function(req, res, next) {
       });*/
 
     //});
-
-    var x = {
-      'cool':'beans'
-    };
 
     res.json(x);
   });

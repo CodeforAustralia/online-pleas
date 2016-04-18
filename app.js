@@ -5,10 +5,17 @@ var logger = require('morgan');
 var compression = require('compression');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+var chalk = require('chalk'); // colour our output
+var chalkColours = require('./chalk-colours');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var pleas = require('./routes/pleas');
+
+// db connection
+var db;
+var dbName = "njc_online_pleas";
 
 var app = express();
 
@@ -53,16 +60,24 @@ if (app.get('env') === 'development') {
       error: err
     });
   });
-}
+  // connect to mongodb
+  mongoose.connect('mongodb://localhost/' + dbName);
+  db = mongoose.connection;
 
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
+  db.on('error', console.error.bind(console, 'connection error:'));
+  db.once('open', function(callback){
+    console.log(chalkColours.success("Connected to monogodb"));
   });
-});
+}
+else {
+  // connect to remote mongodb
+  mongoose.connect(process.env.MONGOLAB_URI); // connect to local mongo
+  db = mongoose.connection;
+
+  db.on('error', console.error.bind(console, 'connection error:'));
+  db.once('open', function(callback){
+    console.log(chalkColours.success("Connected to monogodb"));
+  });
+}
 
 module.exports = app;
