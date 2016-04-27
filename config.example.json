@@ -1,0 +1,7 @@
+{
+  "urls": {
+    "templates":"<your-templates-directory>",
+    "api": "<your-api-prefix>"
+  },
+  "passport_secret": "<your-passport-secret>"
+}

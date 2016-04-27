@@ -1,4 +1,6 @@
+var config = require('./config.json');
 var express = require('express');
+var rev = require('express-rev');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -30,6 +32,10 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(rev({
+  manifest: './public/dist/rev-manifest.json',
+  prepend: config.urls.public + "/dist"
+}));
 
 // use this because we are behind a proxy
 app.set('trust proxy', true);

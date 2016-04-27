@@ -4,10 +4,10 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "(psy start -n online-pleas node ./bin/www &)",
+    "start": "node ./bin/www",
     "postinstall": "bower cache clean && bower install",
-    "test": "(npm start) && (webdriver-manager start &) && protractor conf.js && npm stop",
-    "stop": "psy stop online-pleas"
+    "test": "(npm start) && (webdriver-manager start &) && protractor conf.js && npm test-stop",
+    "test-stop": "psy stop online-pleas"
   },
   "dependencies": {
     "body-parser": "1.12.4",
@@ -37,5 +37,39 @@
     "psy": "^1.7.1",
     "serve-favicon": "2.2.1",
     "supergoose": "0.2.4"
+  },
+  "devDependencies": {
+    "del": "^2.2.0",
+    "express-rev": "^0.1.2",
+    "gulp": "^3.9.1",
+    "gulp-angular-filesort": "^1.1.1",
+    "gulp-angular-templatecache": "^1.8.0",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-filelog": "^0.4.1",
+    "gulp-filter": "^4.0.0",
+    "gulp-inject": "^4.0.0",
+    "gulp-jshint": "^2.0.0",
+    "gulp-less": "^3.0.5",
+    "gulp-load-plugins": "^1.2.2",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-minify-html": "^1.0.6",
+    "gulp-ng-annotate": "^2.0.0",
+    "gulp-rev": "^7.0.0",
+    "gulp-size": "^2.1.0",
+    "gulp-sourcemaps": "^2.0.0-alpha",
+    "gulp-strip-debug": "^1.1.0",
+    "gulp-strip-ng-log": "^1.1.2",
+    "gulp-uglify": "^1.5.3",
+    "gulp-util": "^3.0.7",
+    "jshint": "^2.9.2",
+    "less-plugin-autoprefix": "^1.5.1",
+    "less-plugin-clean-css": "^1.5.1",
+    "main-bower-files": "^2.12.0",
+    "run-sequence": "^1.1.5",
+    "stream-series": "^0.1.1",
+    "strip-debug": "^1.1.1",
+    "wiredep": "^4.0.0",
+    "wrench": "^1.5.9"
   }
 }
