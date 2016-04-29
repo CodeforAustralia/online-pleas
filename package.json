@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "postinstall": "bower cache clean && bower install",
-    "test": "(npm start) && (webdriver-manager start &) && protractor conf.js && npm test-stop",
+    "test-start":"psy start -n online-pleas node ./bin/www",
+    "test": "(npm run test-start &) && (webdriver-manager start &) && protractor conf.js && npm run test-stop",
     "test-stop": "psy stop online-pleas"
   },
   "dependencies": {

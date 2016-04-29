@@ -1,5 +1,9 @@
 {
+  "db": {
+    "url": "<your-db-url>"
+  },
   "urls": {
+    "public":"<your-public-directory>",
     "templates":"<your-templates-directory>",
     "api": "<your-api-prefix>"
   },
