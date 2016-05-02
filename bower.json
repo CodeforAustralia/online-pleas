@@ -41,6 +41,6 @@
     "angular-google-places-autocomplete": "^0.2.7"
   },
   "resolutions": {
-    "angular": "1.4.9"
+    "angular": "1.4.10"
   }
 }
