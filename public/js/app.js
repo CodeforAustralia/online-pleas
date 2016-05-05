@@ -1,9 +1,8 @@
-(function(){
+module.exports = function(app){
   'use strict';
   // App bootstrapping + DI
   /*@ngInject*/
-  angular.module('njcOnlinePleas')
-    .config(function($urlRouterProvider){
+  app.config(function($urlRouterProvider){
       // route the default state to the app home
       $urlRouterProvider.when('', '/');
     })
@@ -267,4 +266,4 @@
   	});
   }
 
-})();
+};

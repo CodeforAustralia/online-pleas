@@ -1,9 +1,8 @@
-(function(){
+module.exports = function(app){
   'use strict';
   // App bootstrapping + DI
   /*@ngInject*/
-  angular.module('njcOnlinePleas')
-    .controller('HomeController', HomeController);
+  app.controller('HomeController', HomeController);
 
   /*@ngInject*/
   function HomeController($scope, $log, $rootScope, $state){
@@ -25,4 +24,4 @@
     init();
   }
 
-})();
+};

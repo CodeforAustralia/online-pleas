@@ -1,9 +1,8 @@
-(function(){
+module.exports = function(app){
   'use strict';
   // App bootstrapping + DI
   /*@ngInject*/
-  angular.module('njcOnlinePleas')
-    .directive('rating', function ($log) {
+  app.directive('rating', function ($log) {
       return {
         restrict: "EA", // element or attribute only
         replace: true, // replace the element
@@ -69,4 +68,4 @@
       };
     });
 
-})();
+};

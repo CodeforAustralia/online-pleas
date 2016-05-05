@@ -1,9 +1,8 @@
-(function(){
+module.exports = function(app){
   'use strict';
   // App bootstrapping + DI
   /*@ngInject*/
-  angular.module('njcOnlinePleas')
-    .controller('YesNoModalController', YesNoModalController);
+  app.controller('YesNoModalController', YesNoModalController);
 
   /*@ngInject*/
   function YesNoModalController($scope, $log){
@@ -17,4 +16,4 @@
     init();
   }
 
-})();
+};

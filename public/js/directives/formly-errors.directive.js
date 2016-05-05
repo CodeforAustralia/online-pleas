@@ -1,9 +1,8 @@
-(function(){
+module.exports = function(app){
   'use strict';
   // App bootstrapping + DI
   /*@ngInject*/
-  angular.module('njcOnlinePleas')
-  .directive('formlyErrorSummary', function($log) {
+  app.directive('formlyErrorSummary', function($log) {
     return {
       scope: {},
       bindToController: {
@@ -27,4 +26,4 @@
     };
   });
 
-})();
+};

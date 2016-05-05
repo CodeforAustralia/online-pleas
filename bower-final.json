@@ -1,0 +1,27 @@
+{
+  "name": "njc-online-pleas",
+  "description": "Proof of concept for online guilty pleas",
+  "main": "index.js",
+  "authors": [
+    "Ezekiel Kigbo <theatlasroom@gmail.com>"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "SpinKit": "spinkit#~1.2.5",
+    "angular-spinkit": "~0.3.3",
+    "angular-google-places-autocomplete": "^0.2.7"
+  },
+  "resolutions": {
+    "angular": "1.5.5"
+  }
+}

@@ -1,12 +1,11 @@
-(function(){
+module.exports = function(app){
   'use strict';
   // App bootstrapping + DI
   /*@ngInject*/
-  angular.module('njcOnlinePleas')
-    .controller('FormController', FormController);
+  app.controller('FormController', FormController);
 
   /*@ngInject*/
-  function FormController($scope, $log, $rootScope, $state, $alert, $modal, $http, $interval, $sce){
+  function FormController($scope, $log, $rootScope, $state, $alert, $modal, $http){
 
     var vm = this;
 
@@ -241,10 +240,12 @@
           label: 'Residential address',
           //placeholder: 'Enter your address',
           required: true,
-          'g-places-autocomplete':'g-places-autocomplete'
+          //'g-places-autocomplete':'g-places-autocomplete'
+          'ng-autocomplete':'ng-autocomplete'
         },
         ngModelAttrs: {
-          'g-places-autocomplete': {attribute: 'g-places-autocomplete'}
+          //'g-places-autocomplete': {attribute: 'g-places-autocomplete'}
+          'ng-autocomplete': {attribute: 'ng-autocomplete'}
         },
       },
       {
@@ -495,4 +496,4 @@
     init();
   }
 
-})();
+};

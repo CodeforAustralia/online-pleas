@@ -1,9 +1,8 @@
-(function(){
+module.exports = function(app){
   'use strict';
   // App bootstrapping + DI
   /*@ngInject*/
-  angular.module('njcOnlinePleas')
-    .controller('FormConfirmationController', FormConfirmationController);
+  app.controller('FormConfirmationController', FormConfirmationController);
 
   /*@ngInject*/
   function FormConfirmationController($scope, $log, $rootScope, $state){
@@ -18,4 +17,4 @@
     init();
   }
 
-})();
+};

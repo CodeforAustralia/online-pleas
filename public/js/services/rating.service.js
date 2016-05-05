@@ -1,5 +1,5 @@
 // Dummy data service
-(function(){
+module.exports = function(app){
   'use strict';
 
   /*ngInject*/
@@ -15,4 +15,4 @@
       }
     };
   }
-})();
+};
