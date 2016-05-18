@@ -17,9 +17,8 @@
     "tests"
   ],
   "dependencies": {
-    "SpinKit": "spinkit#~1.2.5",
-    "angular-spinkit": "~0.3.3",
-    "angular-google-places-autocomplete": "^0.2.7"
+    "bootstrap": "^3.3.6",
+    "bootstrap-additions": "^0.3.1"
   },
   "resolutions": {
     "angular": "1.5.5"

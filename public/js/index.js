@@ -6,11 +6,13 @@ require('angular-formly-templates-bootstrap');
 require('angular-moment');
 require('angular-resource');
 require('angular-sanitize');
-require('angular-strap');
+require('angular-toastr');
 require('angular-ui-router');
 require('lodash');
 require('moment');
 require('ng-autocomplete');
+require('npm/angular-strap/dist/angular-strap.min');
+require('npm/angular-strap/dist/angular-strap.tpl.min');
 
 var app = angular.module('njcOnlinePleas', [
   'ui.router',
@@ -18,8 +20,8 @@ var app = angular.module('njcOnlinePleas', [
   'formly',
   'formlyBootstrap',
   'mgcrea.ngStrap',
-  //'google.places'
-  'ngAutocomplete'
+  'ngAutocomplete',
+  'toastr'
 ]);
 
 // main app
@@ -38,4 +40,4 @@ require('./directives/formly-errors.directive')(app);
 require('./directives/rating.directive')(app);
 
 // services
-require('./services/rating.service');
+require('./services/rating.service')(app);

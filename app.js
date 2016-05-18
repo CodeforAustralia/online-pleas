@@ -1,6 +1,5 @@
-var config = require('./config.json');
+require('dotenv').config();
 var express = require('express');
-var rev = require('express-rev');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -20,7 +19,7 @@ var ratings = require('./routes/ratings');
 var db = require('./db');
 
 var app = express();
-
+var config = process.env; // load configs from the process
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -31,10 +30,6 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(rev({
-  manifest: './public/dist/rev-manifest.json',
-  prepend: config.urls.public + "/dist"
-}));
 
 // use this because we are behind a proxy
 app.set('trust proxy', true);
@@ -57,7 +52,7 @@ app.use(function(req, res, next) {
 
 // error handlers
 // connect our db
-db.connect(config.db.url);
+db.connect(process.env.MONGO_URL);
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {

@@ -39,28 +39,28 @@ module.exports = function(app){
       formlyConfig.setWrapper([
         {
           name: 'customLabel',
-          templateUrl: 'js/partials/forms/wrappers/label.html',
+          template: require('./partials/forms/wrappers/label.html'),
         },
         /*{
           name: 'customLabelWithCounter',
-          templateUrl: 'js/partials/forms/wrappers/label-with-counter.html',
+          template: require('./partials/forms/wrappers/label-with-counter.html',
         },*/
         {
           name: 'customHasError',
-          templateUrl: 'js/partials/forms/wrappers/has-error.html',
+          template: require('./partials/forms/wrappers/has-error.html'),
         },
         {
           name: 'note',
-          templateUrl: 'js/partials/forms/wrappers/field-note.html'
+          template: require('./partials/forms/wrappers/field-note.html')
         },
         {
           name: 'noteModal',
-          templateUrl: 'js/partials/forms/wrappers/field-note-modal.html'
+          template: require('./partials/forms/wrappers/field-note-modal.html')
         },
-        {
+        /*{
           name: 'dobSeperateFields',
-          templateUrl: 'js/partials/forms/wrappers/dob-seperate-fields.html'
-        },
+          template: require('./partials/forms/wrappers/dob-seperate-fields.html')
+        },*/
       ]);
 
       // custom formly templates
@@ -97,7 +97,7 @@ module.exports = function(app){
       {
         extends: 'radio',
         name: 'customRatingRadio',
-        templateUrl: 'js/partials/forms/wrappers/custom-field-rating-radio.html',
+        template: require('./partials/forms/wrappers/custom-field-rating-radio.html'),
         wrapper: ['customLabel', 'customHasError'],
         controller: ['$scope', function($scope) {
           $scope.options.data.getValidationMessage = getValidationMessage;
@@ -113,7 +113,7 @@ module.exports = function(app){
       {
         extends: 'checkbox',
         name: 'customCheckbox',
-        templateUrl: 'js/partials/forms/wrappers/custom-field-checkbox.html',
+        template: require('./partials/forms/wrappers/custom-field-checkbox.html'),
         wrapper: ['customLabel', 'customHasError'],
         controller: ['$scope', function($scope) {
           $scope.options.data.getValidationMessage = getValidationMessage;
@@ -223,7 +223,7 @@ module.exports = function(app){
     $stateProvider
   	.state('home', { // state for showing all movies
   		url: '/',
-  		templateUrl: 'js/partials/home.html',
+  		template: require('./partials/home.html'),
   		controller: 'HomeController',
       controllerAs: 'vm',
       resolve: {
@@ -233,7 +233,7 @@ module.exports = function(app){
     .state('form', {
       abstract: true,
       //template: '<ui-view/>',
-      templateUrl: 'js/partials/form.html',
+      template: require('./partials/form.html'),
       controller: 'FormController',
       controllerAs: 'vm',
       resolve: {
@@ -242,23 +242,23 @@ module.exports = function(app){
   	})
     .state('form.your-details', {
   		//url: '/form/details',
-  		templateUrl: 'js/partials/your-details.html',
+  		template: require('./partials/your-details.html'),
   	})
     .state('form.your-offence', {
   		//url: '/form/offence',
-  		templateUrl: 'js/partials/your-offence.html',
+  		template: require('./partials/your-offence.html'),
   	})
     .state('form.declaration', {
   		//url: '/form/declaration',
-  		templateUrl: 'js/partials/declaration.html',
+  		template: require('./partials/declaration.html'),
   	})
     .state('form.review', {
   		//url: '/form/review',
-  		templateUrl: 'js/partials/review.html',
+  		template: require('./partials/review.html'),
   	})
     .state('form.finish', {
   		url: '/submitted',
-  		templateUrl: 'js/partials/confirmation.html',
+  		template: require('./partials/confirmation.html'),
   		controller: 'FormConfirmationController',
       controllerAs: 'vm',
       resolve: {
