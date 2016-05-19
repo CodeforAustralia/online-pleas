@@ -32,6 +32,7 @@
     }
   });
 };*/
+'use strict';
 
 var api_key ='key-1f3f2b0bc88c6b48652071784b9d6687';
 var domain = 'njc.codeforaustralia.org';
@@ -43,10 +44,10 @@ var mailer = {
     //var fileStream = fs.createReadStream(path);
     //var fileStat = fs.statSync(path);
     // create the attachement filestream
-    var attch = new mailgun.Attachment({data: path, filename: 'attachment.pdf'});
+    var attachment = new mailgun.Attachment({data: path, filename: 'attachment.pdf'});
     //console.log(attch);
 
-    message.attachment = attch;
+    message.attachment = attachment;
     this.send(message, callback);
   },
   send: function(message, callback){

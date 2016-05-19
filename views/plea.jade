@@ -10,18 +10,19 @@ html
     header
       .container
         h1 NJC - Online plea
-        h4 Plea for offence #{data.offence_number}
+        h4 Plea for offence #{data.id}
         //h5 Submitted - date submitted
     main
       .container
         hr
         each val, key in pretty_data
-          .row
-            .col-xs-12
-              .plea-field-label
-                p= key
-              .plea-field-value
-                p= val
+          if key !== 'id'
+            .row
+              .col-xs-12
+                .plea-field-label
+                  h4= key.toUpperCase()
+                  p= val
+                //.plea-field-value
         hr
     footer
       .container
