@@ -1,4 +1,5 @@
 'use strict';
+var _ = require('lodash');
 var fs = require('fs');
 var express = require('express');
 var router = express.Router();
@@ -76,8 +77,6 @@ function emailPlea(plea, baseurl){
       sendEmailWithAttachment(null, plea, buffer)
         .then(function(data){
           console.log("SENT");
-          console.log(data);
-          res.send(data);
         });
       //res.render('plea', {base_url: baseurl, pretty_data: cleanupLabels(plea), data: plea});
     })
@@ -115,12 +114,15 @@ router.post('/', function(req, res, next) {
     }
   });
 
-  p.save(function(err, res){
+  p.save(function(err, result){
     if (err){ console.log(err); }
     x = p;
     var baseurl = req.protocol + '://' + req.get('host');
-    emailPlea(x, baseurl);
+    // pass the raw plea information from the original request to the email template
+    plea.id = result._id;
+    emailPlea(plea, baseurl);
     // send the email with the pdf attached
+    _.omit(x, '_id');
     res.json(x);
   });
 });
@@ -131,13 +133,14 @@ router.get('/test/email', function(req, res, next){
   var plea = JSON.parse('{"id":"23ed22d2ed","first_name":"Ezekiel","last_name":"Kigbo","address":"837 Bourke St, Docklands VIC 3008, Australia","birthday":"2016-03-04","contact_method":"phone","contact":"23424234","hearing_date":"2016-02-11","offence_date":"2016-03-04","offence_details":"Fashion killer","message":"I try my best m8.","acknowledgement":true,"plead_guilty":true}');
   console.log(plea);
   emailPlea(plea, baseurl);
+  res.send(plea);
 });
 
 // test the email
 router.get('/test', function(req, res, next){
   //res.json("Hello");
   var baseurl = req.protocol + '://' + req.get('host');
-  var plea = JSON.parse('{"first_name":"Ezekiel","last_name":"Kigbo","address":"837 Bourke St, Docklands VIC 3008, Australia","birthday":"2016-03-04","contact_method":"phone","contact":"23424234","hearing_date":"2016-02-11","offence_date":"2016-03-04","offence_number":"23ed22d2ed","offence_details":"Fashion killer","message":"I try my best m8.","acknowledgement":true,"plead_guilty":true}');
+  var plea = JSON.parse('{"id":"23ed22d2ed","first_name":"Ezekiel","last_name":"Kigbo","address":"837 Bourke St, Docklands VIC 3008, Australia","birthday":"2016-03-04","contact_method":"phone","contact":"23424234","hearing_date":"2016-02-11","offence_date":"2016-03-04","offence_number":"23ed22d2ed","offence_details":"Fashion killer","message":"I try my best m8.","acknowledgement":true,"plead_guilty":true}');
   console.log(plea);
   res.send(plea);
 });
