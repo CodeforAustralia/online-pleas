@@ -9,18 +9,18 @@ exports.config = {
   },
 
   capabilities: {
-    browserName: 'firefox'
+    browserName: 'chrome'
   },
 
   rootElement: '[ng-app]', // Tell protractor where the app root is
   // pretty jasmine reporter results
   onPrepare: function() {
-    var SpecReporter = require('jasmine-spec-reporter');
+    /*var SpecReporter = require('jasmine-spec-reporter');
     // add jasmine spec reporter
     jasmine.getEnv().addReporter(new SpecReporter({
-      displayStacktrace: true,
+      displayStacktrace: false,
       displaySuiteNumber: true
-    }));
+    }));*/
 
     //browser.driver.get("http://localhost:3000/");
   },

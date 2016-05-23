@@ -11,9 +11,8 @@
     "start": "node ./bin/www",
     "dev": "(nodemon &) && (webpack-dev-server &)",
     "postinstall": "bower install && webpack",
-    "test-start": "psy start -n online-pleas node ./bin/www",
-    "test": "(npm run start &) && (webdriver-manager start &) && (protractor conf.js &) && npm run test-stop",
-    "test-stop": "psy stop online-pleas"
+    "test": "(npm run start &) && (webdriver-manager start &) && protractor conf.js && (npm run stop-selenium &)",
+    "stop-selenium":"curl -s -L http://localhost:4444/selenium-server/driver?cmd=shutDownSeleniumServer > /dev/null 2>&1"
   },
   "dependencies": {
     "angular": "^1.5.5",
