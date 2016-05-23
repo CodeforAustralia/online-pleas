@@ -24,7 +24,7 @@ module.exports = function(app){
     vm.place = null;
     vm.errors = [];
 
-    vm.cleanupDate = formatDateForCourtlink;
+    //vm.cleanupDate = formatDateForCourtlink;
 
     vm.cancelForm = function(){
       var exitModal = $modal({scope: $scope, show: true, content: "Are you sure you would like to exit the form?", templateUrl: "js/partials/yes-no-modal.html"});
@@ -45,11 +45,16 @@ module.exports = function(app){
 
     vm.submit = function(){
       var fields = angular.copy(vm.model);
-      fields.address = cleanupGoogleAddress(fields.address);
+      //fields.address = cleanupGoogleAddress(fields.address);
       fields.plead_guilty = (fields.plead_guilty) ? "YES" : "NO";
       fields.acknowledgement = (fields.acknowledgement) ? "YES" : "NO";
       //fields.birthday = formatDateForCourtlink(vm.model.birthday);
-      fields.birthday = vm.model.birthday;
+      $log.log("Cleaning up before submission");
+      $log.log(vm.model);
+      fields.birthday = formatDateForCourtlink(vm.model.birthday);
+      fields.hearing_date = formatDateForCourtlink(vm.model.hearing_date);
+      fields.offence_date = formatDateForCourtlink(vm.model.offence_date);
+      $log.log(fields);
 
       $http.post("pleas", fields)
         .then(function(){
@@ -60,10 +65,14 @@ module.exports = function(app){
         });
     };
 
-    function formatDateForCourtlink(date){
+    function formatDateForCourtlink(orig_date, delim){
       // takes an object with {year, month, day} => returns a formatted date
-      // return the shortform
-      var d = new Date(date.year, date.month, date.day);
+      // convert the date to dd-MMM-YYYY format ie: 10-Jan-1988
+      // expect 0 based month
+      // assume it comes in dd/MM/YYYY format
+      var delimiter = (delim) ? delim : "/";
+      var date = orig_date.split(delimiter);
+      var d = new Date(date[2], date[1], date[0]);
       var monthnames = ["January", "February", "March", "April", "May", "June",
                         "July", "August", "September", "October", "November", "December"];
       return d.getDate() + " " + monthnames[d.getMonth()].slice(0, 3) + " " + d.getFullYear();
@@ -77,7 +86,7 @@ module.exports = function(app){
       return d.getTime()/1000;
     }
 
-    function formatDateDDMMYYYY(date, delim){
+    /*function formatDateDDMMYYYY(date, delim){
       var delimiter = (delim) ? delim : "/";
       // convert the date to YMD
       // expect 0 based month
@@ -87,11 +96,11 @@ module.exports = function(app){
       var day = d.getDate();
       day = String(day).length === 2 ? day : "0"+String(day);
       return day + delimiter + mon + delimiter + d.getFullYear();
-    }
+    }*/
 
     function cleanupGoogleAddress(address){
       // extract the parts we need from the google address
-      return address.formatted_address;
+      return address;
     }
 
     function cleanupSplitDate(key, model){
@@ -189,6 +198,7 @@ module.exports = function(app){
         if (!valid)
           vm.errors.push({'message': "You must agree to both declarations to proceed"});
       }
+      $log.log(vm.model);
     };
 
     vm.finish = function(){

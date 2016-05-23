@@ -15,14 +15,13 @@ html
     main
       .container
         hr
-        each val, key in pretty_data
-          if key !== 'id'
+        each elem in pretty_data
+          if elem.key !== 'id'
             .row
               .col-xs-12
                 .plea-field-label
-                  h4= key.toUpperCase()
-                  p= val
-                //.plea-field-value
+                  h4= elem.key.toUpperCase()
+                  p= elem.value
         hr
     footer
       .container

@@ -59,11 +59,11 @@ function createEmailPlea(plea, baseurl){
  }
 
 function cleanupLabels(arr){
-  var clean = {};
-  console.log("Cleaning labels");
+  var clean = [];
   for (var key in arr){
     var new_key = key.replace("_", " ");
-    clean[new_key] = arr[key];
+    //clean[new_key] = arr[key];
+    clean.push({'key': new_key, 'value': arr[key]});
   }
   return clean;
 }
@@ -88,10 +88,21 @@ function emailPlea(plea, baseurl){
 /* POST Submit a plea */
 router.post('/', function(req, res, next) {
   // generate the html document
-  var plea = req.body;
-  var x = {};
-
-  console.log(plea);
+  // grab the data we need from the request
+  var plea = {
+    'given_name': req.body.given_name,
+    'family_name': req.body.family_name,
+    'address': req.body.address,
+    'birthday': req.body.birthday,
+    'contact_method': req.body.contact_method,
+    'contact': req.body.contact,
+    'hearing_date': req.body.hearing_date,
+    'offence_date': req.body.offence_date,
+    'offence_details': req.body.offence_details,
+    'message': req.body.message,
+    'plead_guilty': req.body.plead_guilty,
+    'acknowledgement': req.body.acknowledgement
+  };
 
   var p = new Pleas({
     details: {
@@ -116,14 +127,12 @@ router.post('/', function(req, res, next) {
 
   p.save(function(err, result){
     if (err){ console.log(err); }
-    x = p;
     var baseurl = req.protocol + '://' + req.get('host');
     // pass the raw plea information from the original request to the email template
     plea.id = result._id;
     emailPlea(plea, baseurl);
-    // send the email with the pdf attached
-    _.omit(x, '_id');
-    res.json(x);
+    // send the email with the pdf attached, remove any fields we dont need
+    res.json(_.omit(p, ['_id']));
   });
 });
 
@@ -131,7 +140,6 @@ router.post('/', function(req, res, next) {
 router.get('/test/email', function(req, res, next){
   var baseurl = req.protocol + '://' + req.get('host');
   var plea = JSON.parse('{"id":"23ed22d2ed","first_name":"Ezekiel","last_name":"Kigbo","address":"837 Bourke St, Docklands VIC 3008, Australia","birthday":"2016-03-04","contact_method":"phone","contact":"23424234","hearing_date":"2016-02-11","offence_date":"2016-03-04","offence_details":"Fashion killer","message":"I try my best m8.","acknowledgement":true,"plead_guilty":true}');
-  console.log(plea);
   emailPlea(plea, baseurl);
   res.send(plea);
 });
@@ -141,7 +149,6 @@ router.get('/test', function(req, res, next){
   //res.json("Hello");
   var baseurl = req.protocol + '://' + req.get('host');
   var plea = JSON.parse('{"id":"23ed22d2ed","first_name":"Ezekiel","last_name":"Kigbo","address":"837 Bourke St, Docklands VIC 3008, Australia","birthday":"2016-03-04","contact_method":"phone","contact":"23424234","hearing_date":"2016-02-11","offence_date":"2016-03-04","offence_number":"23ed22d2ed","offence_details":"Fashion killer","message":"I try my best m8.","acknowledgement":true,"plead_guilty":true}');
-  console.log(plea);
   res.send(plea);
 });
 
