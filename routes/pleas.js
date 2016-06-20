@@ -7,7 +7,6 @@ var jade = require('jade');
 var pdf = require('html-pdf');
 var mailer = require('../mailer');
 var Pleas = require('../models/pleas');
-var mongoose = require('mongoose');
 
 function sendEmailWithAttachment(opts, plea, attachment){
   return new Promise(function(resolve, reject){

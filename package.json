@@ -7,10 +7,10 @@
     "node": "5.8.0"
   },
   "scripts": {
-    "build": "webpack --display-modules --progress",
+    "build": "webpack --display-modules --progress --optimize-minimize",
     "start": "node ./bin/www",
     "dev": "(nodemon &) && (webpack-dev-server &)",
-    "postinstall": "bower install && webpack",
+    "postinstall": "bower install && webpack --optimize-minimize",
     "test": "(npm run start &) && (webdriver-manager start &) && protractor conf.js && (npm run stop-selenium &)",
     "stop-selenium":"curl -s -L http://localhost:4444/selenium-server/driver?cmd=shutDownSeleniumServer > /dev/null 2>&1"
   },

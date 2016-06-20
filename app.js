@@ -4,14 +4,9 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var compression = require('compression');
-var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-var chalk = require('chalk'); // colour our output
-var chalkColours = require('./chalk-colours');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
 var pleas = require('./routes/pleas');
 var ratings = require('./routes/ratings');
 
@@ -29,7 +24,6 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 
 // use this because we are behind a proxy
 app.set('trust proxy', true);

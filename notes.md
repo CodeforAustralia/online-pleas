@@ -1,4 +1,7 @@
 # Notes
+## General
+* Local mail service: https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-postfix-as-a-send-only-smtp-server-on-ubuntu-16-04
+
 ## Todo
 * Remove uneeded scripts + add build step
 * Add e2e + unit tests
