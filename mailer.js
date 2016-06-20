@@ -34,7 +34,8 @@
 };*/
 'use strict';
 
-var api_key ='key-1f3f2b0bc88c6b48652071784b9d6687';
+// grab the api key
+var api_key = process.env.MAILGUN_SECRET;
 var domain = 'njc.codeforaustralia.org';
 var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
 var fs = require('fs');

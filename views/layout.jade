@@ -32,61 +32,10 @@ html
     script(type="text/javascript", src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js")
 
     script(type="text/javascript", src='https://maps.googleapis.com/maps/api/js?libraries=places')
-    script(type="text/javascript", src="/online-pleas/static/build/bundle.js")
-
-    //
-      if env != "production"
-          link(rel="stylesheet", href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css')
-          link(rel='stylesheet', href='vendor/bootstrap/dist/css/bootstrap.min.css')
-          link(rel='stylesheet', href='vendor/bootstrap-additions/dist/bootstrap-additions.min.css')
-          link(rel='stylesheet', href='vendor/angular-spinkit/build/angular-spinkit.min.css')
-          link(rel='stylesheet', href='vendor/angular-google-places-autocomplete/src/autocomplete.css')
-
-          link(rel="stylesheet", type="text/css", href='/online-pleas/static/css/njc-base.css')
-          link(rel="stylesheet/less", type="text/css", href='/online-pleas/static/less/app.less')
-          script(type="text/javascript", src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js")
-
-          script(type="text/javascript", src="/online-pleas/static/vendor/jquery/dist/jquery.min.js")
-          script(type="text/javascript", src="/online-pleas/static/vendor/lodash/lodash.min.js")
-          script(type="text/javascript", src="/online-pleas/static/vendor/bootstrap/dist/js/bootstrap.min.js")
-          script(type="text/javascript", src="/online-pleas/static/vendor/api-check/dist/api-check.min.js")
-          script(type="text/javascript", src="/online-pleas/static/vendor/moment/min/moment.min.js")
-          script(type="text/javascript", src="/online-pleas/static/vendor/angular/angular.min.js")
-          script(type="text/javascript", src="/online-pleas/static/vendor/angular-spinkit/build/angular-spinkit.min.js")
-          script(type="text/javascript", src="/online-pleas/static/vendor/angular-formly/dist/formly.min.js")
-          script(type="text/javascript", src="/online-pleas/static/vendor/angular-formly-templates-bootstrap/dist/angular-formly-templates-bootstrap.min.js")
-          script(type="text/javascript", src="/online-pleas/static/vendor/angular-animate/angular-animate.min.js")
-          script(type="text/javascript", src="/online-pleas/static/vendor/angular-sanitize/angular-sanitize.min.js")
-          script(type="text/javascript", src="/online-pleas/static/vendor/angular-resource/angular-resource.min.js")
-          script(type="text/javascript", src="/online-pleas/static/vendor/angular-ui-router/release/angular-ui-router.min.js")
-          script(type="text/javascript", src="/online-pleas/static/vendor/angular-cache/dist/angular-cache.min.js")
-          script(type="text/javascript", src="/online-pleas/static/vendor/angular-truncate/src/truncate.js")
-          script(type="text/javascript", src="/online-pleas/static/vendor/angular-social-links/angular-social-links.js")
-          script(type="text/javascript", src="/online-pleas/static/vendor/angular-multi-step-form/dist/browser/angular-multi-step-form.min.js")
-          script(type="text/javascript", src="/online-pleas/static/vendor/angular-strap/dist/angular-strap.min.js")
-          script(type="text/javascript", src="/online-pleas/static/vendor/angular-strap/dist/angular-strap.tpl.min.js")
-          script(type="text/javascript", src='https://maps.googleapis.com/maps/api/js?libraries=places')
-          script(type="text/javascript", src="/online-pleas/static/vendor/angular-google-places-autocomplete/dist/autocomplete.min.js")
-
-          script(type="text/javascript", src="/online-pleas/static/js/modules.js")
-          script(type="text/javascript", src="/online-pleas/static/js/app.js")
-          script(type="text/javascript", src="/online-pleas/static/js/controllers/home.controller.js")
-          script(type="text/javascript", src="/online-pleas/static/js/controllers/confirmation.controller.js")
-          script(type="text/javascript", src="/online-pleas/static/js/controllers/form.controller.js")
-          script(type="text/javascript", src="/online-pleas/static/js/controllers/form-confirmation.controller.js")
-          script(type="text/javascript", src="/online-pleas/static/js/controllers/yes-no-modal.controller.js")
-          script(type="text/javascript", src="/online-pleas/static/js/services/rating.service.js")
-          script(type="text/javascript", src="/online-pleas/static/js/directives/rating.directive.js")
-          script(type="text/javascript", src="/online-pleas/static/js/directives/form-steps.directive.js")
-          script(type="text/javascript", src="/online-pleas/static/js/directives/formly-errors.directive.js")
-      else
-          link(rel="stylesheet", href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css')
-          link(rel='stylesheet', type='text/css', href=rev('vendor.css'))
-          link(rel='stylesheet', type='text/css', href=rev('main.css'))
-          script(type="text/javascript", src='https://maps.googleapis.com/maps/api/js?libraries=places')
-          script(type="text/javascript", src=rev('vendor.js'))
-          script(type="text/javascript", src=rev('main.js'))
-          script(type="text/javascript", src=rev('templates.js'))
+    if !env || env === 'development'
+      script(type="text/javascript", src="http://localhost:8080/build/bundle.js")
+    else
+      script(type="text/javascript", src="/online-pleas/static/build/bundle.js")
 
 
   body.njc-online-pleas
