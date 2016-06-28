@@ -167,11 +167,15 @@ function fillDeclarations(opf){
   opf.clickButton('Next');
 }
 
+function loadPage(){
+  return browser.get("http://localhost:3000/");
+}
+
 describe('Online pleas', function() {
   describe('Home', function() {
     //beforeEach
     beforeEach(function(){
-      browser.driver.get("http://localhost:3000/");
+      loadPage();
     });
 
     it('should have a title and begin button', function(){
@@ -207,7 +211,7 @@ describe('Online pleas', function() {
   describe('Form', function(){
     //beforeEach
     beforeEach(function(){
-      browser.driver.get("http://localhost:3000/");
+      loadPage();
     });
 
     it('should let me successfully submit the form', function(){
@@ -274,8 +278,10 @@ describe('Online pleas', function() {
     var opf = new OnlinePleasForm();
 
     beforeEach(function(){
-      browser.driver.get("http://localhost:3000/");
-      opf.clickButton('Begin');
+      return loadPage()
+      .then(function(){
+        opf.clickButton('Begin');
+      });
     });
 
     it('should make sure the date of birth is a past date', function(){
@@ -294,10 +300,11 @@ describe('Online pleas', function() {
     var opf = new OnlinePleasForm();
 
     beforeEach(function(){
-      browser.driver.get("http://localhost:3000/");
-      var opf = new OnlinePleasForm();
-      opf.clickButton('Begin');
-      fillYourDetails(opf);
+      loadPage().then(function(){
+        var opf = new OnlinePleasForm();
+        opf.clickButton('Begin');
+        fillYourDetails(opf);
+      });
     });
 
     it('should make sure the offence and hearing date dont fail with a short month / year', function(){
@@ -369,11 +376,12 @@ describe('Online pleas', function() {
     var opf = new OnlinePleasForm();
 
     beforeEach(function(){
-      browser.driver.get("http://localhost:3000/");
-      var opf = new OnlinePleasForm();
-      opf.clickButton('Begin');
-      fillYourDetails(opf);
-      fillYourOffence(opf);
+      return loadPage().then(function(){
+        var opf = new OnlinePleasForm();
+        opf.clickButton('Begin');
+        fillYourDetails(opf);
+        fillYourOffence(opf);
+      });
     });
 
     it('should make sure both declarations are selected', function(){

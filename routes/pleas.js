@@ -67,7 +67,7 @@ function cleanupLabels(arr){
   return clean;
 }
 
-function emailPlea(plea, baseurl){
+function emailPlea(plea, baseurl, cb){
   console.log("Emailling the plea");
   console.log(plea);
   createEmailPlea(plea, baseurl)
@@ -80,7 +80,7 @@ function emailPlea(plea, baseurl){
       //res.render('plea', {base_url: baseurl, pretty_data: cleanupLabels(plea), data: plea});
     })
     .catch(function(err){
-      console.log(err);
+      cb(err);
     });
 }
 
@@ -125,31 +125,15 @@ router.post('/', function(req, res, next) {
   });
 
   p.save(function(err, result){
-    if (err){ console.log(err); }
+    if (err){ next(err); }
     var baseurl = req.protocol + '://' + req.get('host');
     // pass the raw plea information from the original request to the email template
     plea.id = result._id;
-    emailPlea(plea, baseurl);
-    // send the email with the pdf attached, remove any fields we dont need
-    res.json(_.omit(p, ['_id']));
+    emailPlea(plea, baseurl, function(err, res){
+      // send the email with the pdf attached, remove any fields we dont need
+      res.json(_.omit(p, ['_id']));
+    });
   });
 });
-
-// test the plea view
-router.get('/test/email', function(req, res, next){
-  var baseurl = req.protocol + '://' + req.get('host');
-  var plea = JSON.parse('{"id":"23ed22d2ed","first_name":"Ezekiel","last_name":"Kigbo","address":"837 Bourke St, Docklands VIC 3008, Australia","birthday":"2016-03-04","contact_method":"phone","contact":"23424234","hearing_date":"2016-02-11","offence_date":"2016-03-04","offence_details":"Fashion killer","message":"I try my best m8.","acknowledgement":true,"plead_guilty":true}');
-  emailPlea(plea, baseurl);
-  res.send(plea);
-});
-
-// test the email
-router.get('/test', function(req, res, next){
-  //res.json("Hello");
-  var baseurl = req.protocol + '://' + req.get('host');
-  var plea = JSON.parse('{"id":"23ed22d2ed","first_name":"Ezekiel","last_name":"Kigbo","address":"837 Bourke St, Docklands VIC 3008, Australia","birthday":"2016-03-04","contact_method":"phone","contact":"23424234","hearing_date":"2016-02-11","offence_date":"2016-03-04","offence_number":"23ed22d2ed","offence_details":"Fashion killer","message":"I try my best m8.","acknowledgement":true,"plead_guilty":true}');
-  res.send(plea);
-});
-
 
 module.exports = router;

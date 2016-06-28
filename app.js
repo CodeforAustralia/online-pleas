@@ -25,9 +25,6 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// use this because we are behind a proxy
-app.set('trust proxy', true);
-
 // set the static asset path
 app.use(compression()); //use compression
 app.use(express.static(path.join(__dirname, 'public')));
@@ -59,7 +56,15 @@ if (app.get('env') === 'development') {
   });
 }
 else {
-  // production settings
+  // production error handler
+  // no stacktraces leaked to user
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: {}
+    });
+  });
 }
 
 module.exports = app;

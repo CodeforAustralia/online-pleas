@@ -25,7 +25,7 @@ exports.config = {
     //browser.driver.get("http://localhost:3000/");
   },
 
-  //baseUrl: 'http://localhost:3000/',
+  baseUrl: 'http://localhost:3000/',
   //getPageTimeout: 20000, // page load timeouts
   //allScriptsTimeout: 20000, // page sync timeouts
 
