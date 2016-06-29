@@ -11,14 +11,17 @@ var Pleas = require('../models/pleas');
 function sendEmailWithAttachment(opts, plea, attachment){
   return new Promise(function(resolve, reject){
     var email = {
-      from: 'ezekiel@codeforaustralia.org',
-      to: 'theatlasroom@gmail.com', // comma separated list
+      from: process.env.MAILGUN_SENDER,
+      to: 'ezekiel@codeforaustralia.org', // comma separated list
       subject: 'Online plea - ' + plea.id,
       text: 'Hello\nA new guilty plea has been submitted. \nYou will find the plea attached to this email.'
     };
 
     mailer.sendWithAttachment(email, attachment, function(err, response){
-      if (err){ reject(err); }
+      if (err){
+        console.log(err);
+        reject(err);
+      }
       resolve(response);
     });
   });
@@ -131,8 +134,11 @@ router.post('/', function(req, res, next) {
     plea.id = result._id;
     emailPlea(plea, baseurl, function(err, res){
       // send the email with the pdf attached, remove any fields we dont need
-      res.json(_.omit(p, ['_id']));
+      if (err) next(err);
+      console.log("email sent");
     });
+
+    res.json(_.omit(p, ['_id']));
   });
 });
 

@@ -3,7 +3,10 @@ var webpack = require('webpack');
 
 module.exports = {
   context: __dirname + '/public/js',
-  entry: ['./index.js'],
+  entry: [
+    'bootstrap-loader',
+    './index.js'
+  ],
   output: {
     path: __dirname + '/public/build',
     publicPath: __dirname + '/public/js',
@@ -25,7 +28,12 @@ module.exports = {
         test: /\.html$/,
         exclude: /node_modules/,
         loader: "raw-loader"
-      }
+      },
+      {
+        test: /\.css$/,
+        loader: "style-loader!css-loader"
+      },
+      { test: /\.(ttf|eot|svg|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
     ]
   },
 

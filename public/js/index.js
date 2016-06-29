@@ -1,18 +1,21 @@
-var angular = require('angular');
+require('npm/lodash');
+require('npm/angular');
+require('npm/jquery');
+require('npm/angular-cache');
+require('npm/angular-formly');
+require('npm/angular-formly-templates-bootstrap');
+require('npm/angular-moment');
+require('npm/angular-resource');
+require('npm/angular-sanitize');
+require('npm/angular-toastr');
+require('npm/angular-ui-router');
+require('npm/moment');
+require('npm/ng-autocomplete');
+require('npm/angular-strap/dist/angular-strap');
+require('npm/angular-strap/dist/angular-strap.tpl');
 
-require('angular-cache');
-require('angular-formly');
-require('angular-formly-templates-bootstrap');
-require('angular-moment');
-require('angular-resource');
-require('angular-sanitize');
-require('angular-toastr');
-require('angular-ui-router');
-require('lodash');
-require('moment');
-require('ng-autocomplete');
-require('npm/angular-strap/dist/angular-strap.min');
-require('npm/angular-strap/dist/angular-strap.tpl.min');
+// other assets
+require('npm/bootstrap-additions/dist/bootstrap-additions.css');
 
 var app = angular.module('njcOnlinePleas', [
   'ui.router',
