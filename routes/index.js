@@ -7,6 +7,7 @@ router.get('/', function(req, res, next) {
 	// get the current environment
 	//var env = JSON.stringify(process.env.NODE_ENV);
 	var env = app.get('env');
+	console.log(env);
 
 	res.render('index', {
 		title: 'NJC Online pleas',

@@ -13,7 +13,7 @@ function sendEmailWithAttachment(opts, plea, attachment){
     var email = {
       from: process.env.MAILGUN_SENDER,
       to: process.env.EMAIL_INBOX, // comma separated list
-      subject: 'Online plea - ' + plea.id,
+      subject: 'Online plea ' + plea.id + ' - ' + plea.given_name + " " + plea.family_name,
       text: 'Hello\nA new guilty plea has been submitted. \nYou will find the plea attached to this email.'
     };
 
@@ -63,9 +63,14 @@ function createEmailPlea(plea, baseurl){
 function cleanupLabels(arr){
   var clean = [];
   for (var key in arr){
-    var new_key = key.replace("_", " ");
-    //clean[new_key] = arr[key];
-    clean.push({'key': new_key, 'value': arr[key]});
+    if (arr[key].label && arr[key].value){
+      //clean[new_key] = arr[key];
+      clean.push({'key': arr[key].label, 'value': arr[key].value});
+    }
+    else {
+      //clean[new_key] = arr[key];
+      clean.push({'key': key.replace("_", " "), 'value': arr[key]});
+    }
   }
   return clean;
 }
@@ -122,8 +127,8 @@ router.post('/', function(req, res, next) {
       message: plea.message,
     },
     declarations: {
-      plead_guilty: plea.plead_guilty,
-      acknowledgement: plea.acknowledgement
+      plead_guilty: plea.plead_guilty.value,
+      acknowledgement: plea.acknowledgement.value
     }
   });
 

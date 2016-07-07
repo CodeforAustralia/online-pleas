@@ -1,7 +1,7 @@
 {
   "name": "njc-online-pleas",
   "description": "Proof of concept for online guilty pleas",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "private": true,
   "engines": {
     "node": "5.8.0"
@@ -9,7 +9,7 @@
   "scripts": {
     "build": "webpack --progress --optimize-minimize",
     "start": "node ./bin/www",
-    "dev": "(npm run start &) && (webpack-dev-server &)",
+    "dev": "(npm start &) && (webpack-dev-server --display-modules --progress &)",
     "postinstall": "webpack --optimize-minimize --progress",
     "pre-test": "(npm run start &) && (webdriver-manager start 2>&1 &) && (webpack-dev-server &)",
     "test": "protractor conf.js",
@@ -73,7 +73,6 @@
     "webpack": "^1.13.0"
   },
   "devDependencies": {
-    "lodash": "^4.12.0",
     "webpack-dev-server": "^1.14.1"
   }
 }

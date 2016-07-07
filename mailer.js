@@ -10,6 +10,7 @@ var domain = process.env.MAILGUN_DOMAIN;
 var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
 var fs = require('fs');
 
+// TODO: attachment filename should be a paramter and should reflect the plea id or something like that
 var mailer = {
   sendWithAttachment: function(message, path, callback){
     var attachment = new mailgun.Attachment({data: path, filename: 'attachment.pdf'});

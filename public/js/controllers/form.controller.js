@@ -8,7 +8,10 @@ module.exports = function(app){
   function FormController($scope, $log, $rootScope, $state, $alert, $modal, $http){
 
     var vm = this;
-
+    var checkboxLabel = {
+      'plead_guilty': 'I plead guilty to the offence(s) listed in this form. This plea is entered voluntarily of my own free will',
+      'acknowledgement': 'I acknowledge I may plead guilty or not guilty. I acknowledge no police officer or other person told me to plead guilty'
+    };
     //$log.log($formlyValidationMessages);
 
     vm.steps = [
@@ -46,14 +49,16 @@ module.exports = function(app){
     vm.submit = function(){
       var fields = angular.copy(vm.model);
       //fields.address = cleanupGoogleAddress(fields.address);
-      fields.plead_guilty = (fields.plead_guilty) ? "YES" : "NO";
-      fields.acknowledgement = (fields.acknowledgement) ? "YES" : "NO";
+      //fields.plead_guilty = (fields.plead_guilty) ? "YES" : "NO";
+      //fields.acknowledgement = (fields.acknowledgement) ? "YES" : "NO";
       //fields.birthday = formatDateForCourtlink(vm.model.birthday);
       $log.log("Cleaning up before submission");
       $log.log(vm.model);
       fields.birthday = formatDateForCourtlink(vm.model.birthday);
       fields.hearing_date = formatDateForCourtlink(vm.model.hearing_date);
       fields.offence_date = formatDateForCourtlink(vm.model.offence_date);
+      fields.acknowledgement = formatCheckboxResponse('acknowledgement');
+      fields.plead_guilty = formatCheckboxResponse('plead_guilty');
       $log.log(fields);
 
       $http.post("pleas", fields)
@@ -64,6 +69,10 @@ module.exports = function(app){
           error();
         });
     };
+
+    function formatCheckboxResponse(target_field){
+      return {value: ((vm.model[target_field]) ? "YES" : "NO") , label: checkboxLabel[target_field]};
+    }
 
     function formatDateForCourtlink(orig_date, delim){
       // takes an object with {year, month, day} => returns a formatted date
@@ -450,7 +459,7 @@ module.exports = function(app){
         type: 'customCheckbox',
         templateOptions: {
           no_label: true,
-          label: 'I acknowledge I may plead guilty or not guilty. I acknowledge no police officer or other person told me to plead guilty',
+          label: checkboxLabel.acknowledgement,
           required: true
         }
       },
@@ -460,7 +469,7 @@ module.exports = function(app){
         type: 'customCheckbox',
         templateOptions: {
           no_label: true,
-          label: 'I plead guilty to the offence(s) listed in this form. This plea is entered voluntarily of my own free will',
+          label: checkboxLabel.plead_guilty,
           required: true
         }
       }

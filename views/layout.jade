@@ -23,12 +23,12 @@ html
     meta(name='msapplication-TileImage', content='/mstile-144x144.png')
     meta(name='theme-color', content='#ffffff')
 
-    script(type="text/javascript", src='https://maps.googleapis.com/maps/api/js?libraries=places')
     if !env || env === 'development'
       script(type="text/javascript", src="http://localhost:8080/build/bundle.js")
     else
       script(type="text/javascript", src="/online-pleas/static/build/bundle.js")
 
+    script(type="text/javascript", src='https://maps.googleapis.com/maps/api/js?libraries=places')
     link(rel="stylesheet", href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css')
     link(rel='stylesheet', href='/online-pleas/static/css/njc-base.css')
     link(rel="stylesheet/less", type="text/css", href='/online-pleas/static/less/app.less')
