@@ -12,7 +12,7 @@ function sendEmailWithAttachment(opts, plea, attachment){
   return new Promise(function(resolve, reject){
     var email = {
       from: process.env.MAILGUN_SENDER,
-      to: 'ezekiel@codeforaustralia.org', // comma separated list
+      to: process.env.EMAIL_INBOX, // comma separated list
       subject: 'Online plea - ' + plea.id,
       text: 'Hello\nA new guilty plea has been submitted. \nYou will find the plea attached to this email.'
     };
